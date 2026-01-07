@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// generator client {
+//   provider = "prisma-client-js"  
+// }
+
+// datasource db {
+//   provider  = "postgresql"
+//   url       = env("DATABASE_URL")
+//   directUrl = env("DIRECT_URL")
+// }
+
+enum ROLE{
+  CUSTOMER
+  TENANT
+}
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      ROLE @default(CUSTOMER)
+  profilePicture String?
+  isVerified Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  properties Property[]
+}
+
+model propertyCategory{
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  properties Property[]
+}
+
+model Property{
+  id          String   @id @default(uuid())
+  name        String
+  // latitude Float
+  // longitude Float
+  description String?
+  city        String
+  address     String
+  images      String[]  //array of image urls
+  tenantId    String
+  categoryId  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tenant User @relation(fields: [tenantId], references: [id],onDelete: Cascade)
+  category propertyCategory @relation(fields: [categoryId], references: [id])
+
+  roomTypes RoomType[]
+}
+
+model RoomType{
+  id          String   @id @default(uuid())
+  name        String
+  propertyId  String
+  description String?
+  basePrice   Decimal
+  capacity    Int
+  images      String[]  //array of image urls
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  property Property @relation(fields: [propertyId], references: [id],onDelete: Cascade)
+
+  rooms Room[]
+  peakSeasonRate PeakSeasonRate[]
+}
+
+model Room{
+  id String @id @default(uuid())
+  roomNumber Int  @default(autoincrement())
+  roomTypeId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  roomType RoomType @relation(fields: [roomTypeId], references: [id],onDelete: Cascade)
+
+  roomAvailability RoomAvailability[]
+}
+
+model RoomAvailability{
+  id          String   @id @default(uuid())
+  roomId      String
+  date        DateTime 
+  isAvailable Boolean @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  room Room @relation(fields: [roomId], references: [id],onDelete: Cascade)
+}
+
+enum PRICE_ADJUSTMENT_TYPE {
+  PERCENTAGE
+  NOMINAL
+}
+
+model PeakSeasonRate{
+  id          String   @id @default(uuid())
+  roomTypeId  String
+
+  startDate   DateTime
+  endDate     DateTime
+
+  reason      String?
+
+  adjustmentType PRICE_ADJUSTMENT_TYPE
+  adjustmentValue Decimal
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  roomType RoomType @relation(fields: [roomTypeId], references: [id],onDelete: Cascade)
+}
