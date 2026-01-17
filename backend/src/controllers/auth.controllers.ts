@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 dotenv.config()
 import {prisma} from '../lib/prisma.js'
 import jwt from 'jsonwebtoken'
-import {sendEmailRegisterNodeMailer,sendEmailResetPasswordNodeMailer,sendEmailChangeEmailNodeMailer,sendEmailConfirmNewEmail} from "../services/nodemailer-email.js";
+import {sendEmailRegisterResend,sendEmailResetPasswordResend,sendEmailChangeEmailResend,sendEmailConfirmNewEmailResend} from "../services/resend-email.js";
 import { compare } from "bcrypt";
 import { hashPassword } from "../utils/hashPassword.js";
 import { createAuthToken } from "../utils/createAuthToken.js"
@@ -36,7 +36,7 @@ export const sendEmailRegister = async(req:Request,res:Response) => {
             data: { token: registrationToken, type: "REGISTER" }
         })
 
-        await sendEmailRegisterNodeMailer(registrationToken,email)
+        await sendEmailRegisterResend(registrationToken,email)
         return res.status(200).json({message:"Email sent successfully"})
     }catch(err){
         res.status(500).json({message:err})
@@ -186,7 +186,7 @@ export const changeEmailSendEmail = async(req:Request,res:Response) => {
             data: { token: changeEmailToken, type: "CHANGE_EMAIL" }
         })
 
-        await sendEmailChangeEmailNodeMailer(changeEmailToken, user.email)
+        await sendEmailChangeEmailResend(changeEmailToken, user.email)
         return res.status(200).json({message:"Email sent successfully"})
     }catch(err){
         res.status(500).json({message:err})
@@ -241,7 +241,7 @@ export const changeEmail = async(req:Request,res:Response) => {
             data: { token: confirmToken, type: "CONFIRM_EMAIL" }
         })
         
-        await sendEmailConfirmNewEmail(confirmToken, newEmail)
+        await sendEmailConfirmNewEmailResend(confirmToken, newEmail)
         
         return res.status(200).json({
             success: true,
@@ -328,7 +328,7 @@ export const forgotPasswordSendEmail = async(req:Request,res:Response) => {
             data: { token: resetToken, type: "RESET_PASSWORD" }
         })
 
-        await sendEmailResetPasswordNodeMailer(resetToken,email)
+        await sendEmailResetPasswordResend(resetToken,email)
         return res.status(200).json({message:"Email sent successfully"})
     }catch(err){
         res.status(500).json({message:err})
@@ -354,7 +354,7 @@ export const resetPasswordSendEmail = async(req:Request,res:Response) => {
             data: { token: resetToken, type: "RESET_PASSWORD" }
         })
 
-        await sendEmailResetPasswordNodeMailer(resetToken,email)
+        await sendEmailResetPasswordResend(resetToken,email)
         return res.status(200).json({message:"Email sent successfully"})
     }catch(err){
         res.status(500).json({message:err})
