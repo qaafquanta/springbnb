@@ -114,7 +114,12 @@ export const login = async(req:Request,res:Response) => {
             }
 
             const token = createAuthToken({id:user.id,role:user.role})
-
+            res.cookie('token', token, {
+                httpOnly: true,
+                secure: true,        // WAJIB TRUE (karena Railway pakai HTTPS)
+                sameSite: 'none',    // WAJIB 'none' (karena beda domain: vercel vs railway)
+                maxAge: 24 * 60 * 60 * 1000 // contoh 1 hari
+                });
             return res.status(200).send({
                 success:true,
                 token,
