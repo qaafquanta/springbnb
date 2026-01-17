@@ -18,7 +18,7 @@ export default function LoginComplete() {
             }
 
             try {
-                const response = await fetch(`/api/backend/auth/google-login`, {
+                const response = await fetch(`/api/auth/google-login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

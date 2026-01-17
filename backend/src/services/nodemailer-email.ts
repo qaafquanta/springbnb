@@ -10,14 +10,22 @@ export const sendEmailRegisterNodeMailer = async (registionToken:string,email:st
     const registerLink = `${process.env.FRONTEND_URL}/register/verified?token=${registionToken}`
     const transporter = nodemailer.createTransport({
         service: 'gmail',
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
         auth: {
-            user: 'kimhakka7@gmail.com',
-            pass: 'xirn kmbm lakc oqwb'
+            user: process.env.NODEMAILER_EMAIL,
+            pass: process.env.NODEMAILER_PASSWORD
+        },
+        logger:true,
+        debug:true,
+        tls: {
+            rejectUnauthorized: false
         }
     }); 
 
     const mailOptions = {
-        from: 'kimhakka7@gmail.com',
+        from: process.env.NODEMAILER_EMAIL,
         to: email,
         subject: 'Test Email',
         text: 'This is a test email sent using Nodemailer.',
@@ -44,14 +52,22 @@ export const sendEmailResetPasswordNodeMailer = async (resetPasswordToken:string
     const resetPasswordLink = `${process.env.FRONTEND_URL}/reset-password/verified?token=${resetPasswordToken}`
     const transporter = nodemailer.createTransport({
         service: 'gmail',
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
         auth: {
-            user: 'kimhakka7@gmail.com',
-            pass: 'xirn kmbm lakc oqwb'
+            user: process.env.NODEMAILER_EMAIL,
+            pass: process.env.NODEMAILER_PASSWORD
+        },
+        logger:true,
+        debug:true,
+        tls: {
+            rejectUnauthorized: false
         }
     }); 
 
     const mailOptions = {
-        from: 'kimhakka7@gmail.com',
+        from: process.env.NODEMAILER_EMAIL,
         to: email,
         subject: 'Reset your Springbnb password',
         text: 'Click the link to reset your password.',
@@ -78,14 +94,22 @@ export const sendEmailChangeEmailNodeMailer = async (changeEmailToken:string,cur
     const changeEmailLink = `${process.env.FRONTEND_URL}/change-email/verified?token=${changeEmailToken}`
     const transporter = nodemailer.createTransport({
         service: 'gmail',
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
         auth: {
-            user: 'kimhakka7@gmail.com',
-            pass: 'xirn kmbm lakc oqwb'
+            user: process.env.NODEMAILER_EMAIL,
+            pass: process.env.NODEMAILER_PASSWORD
+        },
+        logger:true,
+        debug:true,
+        tls: {
+            rejectUnauthorized: false
         }
     }); 
 
     const mailOptions = {
-        from: 'kimhakka7@gmail.com',
+        from: process.env.NODEMAILER_EMAIL,
         to: currentEmail,
         subject: 'Change your Springbnb email',
         text: 'Click the link to change your email address.',
@@ -112,14 +136,22 @@ export const sendEmailConfirmNewEmail = async (confirmToken:string, newEmail:str
     const confirmLink = `${process.env.FRONTEND_URL}/change-email/confirm?token=${confirmToken}`
     const transporter = nodemailer.createTransport({
         service: 'gmail',
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
         auth: {
-            user: 'kimhakka7@gmail.com',
-            pass: 'xirn kmbm lakc oqwb'
+            user: process.env.NODEMAILER_EMAIL,
+            pass: process.env.NODEMAILER_PASSWORD
+        },
+        logger:true,
+        debug:true,
+        tls: {
+            rejectUnauthorized: false
         }
     }); 
 
     const mailOptions = {
-        from: 'kimhakka7@gmail.com',
+        from: process.env.NODEMAILER_EMAIL,
         to: newEmail,
         subject: 'Confirm your new Springbnb email',
         text: 'Click the link to confirm your new email address.',

@@ -22,7 +22,7 @@ export default function RegisterComplete() {
             localStorage.removeItem('registerRole');
 
             try {
-                const response = await fetch(`/api/backend/auth/google-register`, {
+                const response = await fetch(`/api/auth/google-register`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

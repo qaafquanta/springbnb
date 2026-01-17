@@ -460,6 +460,7 @@ export const googleRegister = async(req:Request,res:Response) => {
         return res.status(201).json({
             success: true,
             message: "Registrasi berhasil",
+            token,
             user: {
                 email: user.email,
                 name: user.name,
@@ -503,6 +504,7 @@ export const googleLogin = async(req:Request,res:Response) => {
         return res.status(200).json({
             success: true,
             message: "Login berhasil",
+            token,
             user: {
                 email: user.email,
                 name: user.name,
