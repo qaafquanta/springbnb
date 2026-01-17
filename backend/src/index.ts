@@ -15,6 +15,8 @@ import propertyCategoryRouter from './routes/property-category.route.js';
 const port = process.env.PORT || 8000;
 const app: Express = express();
 
+app.set('trust proxy', 1);
+
 app.use(cors({
   origin: ["http://localhost:3000", (process.env.FRONTEND_URL as string)],
   credentials:true
