@@ -14,19 +14,18 @@ export const sendEmailRegisterNodeMailer = async (registionToken:string,email:st
         port: 587,
         secure: false,
         auth: {
-            user: process.env.NODEMAILER_EMAIL,
-            pass: process.env.NODEMAILER_PASSWORD
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS
         },
         logger:true,
         debug:true,
-        connectionTimeout: 10000,
         tls: {
             rejectUnauthorized: false
         }
     }); 
 
     const mailOptions = {
-        from: process.env.NODEMAILER_EMAIL,
+        from: process.env.SMTP_USER,
         to: email,
         subject: 'Test Email',
         text: 'This is a test email sent using Nodemailer.',
@@ -57,8 +56,8 @@ export const sendEmailResetPasswordNodeMailer = async (resetPasswordToken:string
         port: 465,
         secure: true,
         auth: {
-            user: process.env.NODEMAILER_EMAIL,
-            pass: process.env.NODEMAILER_PASSWORD
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS
         },
         logger:true,
         debug:true,
@@ -68,7 +67,7 @@ export const sendEmailResetPasswordNodeMailer = async (resetPasswordToken:string
     }); 
 
     const mailOptions = {
-        from: process.env.NODEMAILER_EMAIL,
+        from: process.env.SMTP_USER,
         to: email,
         subject: 'Reset your Springbnb password',
         text: 'Click the link to reset your password.',
@@ -99,8 +98,8 @@ export const sendEmailChangeEmailNodeMailer = async (changeEmailToken:string,cur
         port: 465,
         secure: true,
         auth: {
-            user: process.env.NODEMAILER_EMAIL,
-            pass: process.env.NODEMAILER_PASSWORD
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS
         },
         logger:true,
         debug:true,
@@ -110,7 +109,7 @@ export const sendEmailChangeEmailNodeMailer = async (changeEmailToken:string,cur
     }); 
 
     const mailOptions = {
-        from: process.env.NODEMAILER_EMAIL,
+        from: process.env.SMTP_USER,
         to: currentEmail,
         subject: 'Change your Springbnb email',
         text: 'Click the link to change your email address.',
@@ -141,8 +140,8 @@ export const sendEmailConfirmNewEmail = async (confirmToken:string, newEmail:str
         port: 465,
         secure: true,
         auth: {
-            user: process.env.NODEMAILER_EMAIL,
-            pass: process.env.NODEMAILER_PASSWORD
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS
         },
         logger:true,
         debug:true,
@@ -152,7 +151,7 @@ export const sendEmailConfirmNewEmail = async (confirmToken:string, newEmail:str
     }); 
 
     const mailOptions = {
-        from: process.env.NODEMAILER_EMAIL,
+        from: process.env.SMTP_USER,
         to: newEmail,
         subject: 'Confirm your new Springbnb email',
         text: 'Click the link to confirm your new email address.',
