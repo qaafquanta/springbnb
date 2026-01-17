@@ -11,14 +11,15 @@ export const sendEmailRegisterNodeMailer = async (registionToken:string,email:st
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
+        port: 587,
+        secure: false,
         auth: {
             user: process.env.NODEMAILER_EMAIL,
             pass: process.env.NODEMAILER_PASSWORD
         },
         logger:true,
         debug:true,
+        connectionTimeout: 10000,
         tls: {
             rejectUnauthorized: false
         }
