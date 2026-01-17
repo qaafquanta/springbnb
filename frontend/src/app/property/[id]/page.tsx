@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import { FaLocationDot, FaUsers, FaArrowLeft } from "react-icons/fa6";
 
 type Params = Promise<{
     id: string;
-}>;
+ }>;
 
 type Room = {
     id: string;
@@ -42,8 +42,7 @@ type Property = {
     roomTypes: RoomType[];
 }
 
-export default function PropertyDetail({ params }: { params: Params }) {
-    const { id } = React.use(params)
+function PropertyDetailContent({ id }: { id: string }) {
     const searchParams = useSearchParams()
     const [property, setProperty] = useState<Property | null>(null)
     const [loading, setLoading] = useState(true)
@@ -242,5 +241,27 @@ export default function PropertyDetail({ params }: { params: Params }) {
                 </div>
             </div>
         </div>
+    )
+}
+
+export default function PropertyDetail({ params }: { params: Params }) {
+    const { id } = React.use(params)
+    return (
+        <Suspense fallback={
+            <div className="flex flex-col min-h-screen font-sans text-neutral-800 bg-white">
+                <div className="pt-24 pb-20">
+                    <div className="max-w-6xl mx-auto px-4 md:px-8">
+                        <div className="animate-pulse">
+                            <div className="h-8 bg-neutral-200 rounded w-1/3 mb-6"></div>
+                            <div className="h-96 bg-neutral-200 rounded-2xl mb-8"></div>
+                            <div className="h-6 bg-neutral-200 rounded w-1/2 mb-4"></div>
+                            <div className="h-4 bg-neutral-200 rounded w-3/4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }>
+            <PropertyDetailContent id={id} />
+        </Suspense>
     )
 }

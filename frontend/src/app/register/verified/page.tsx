@@ -1,8 +1,8 @@
 'use client'
 import { useSearchParams, useRouter } from 'next/navigation';
-import {useEffect,useState} from 'react';
+import {useEffect,useState, Suspense} from 'react';
 
-export default function RegisterVerified() {
+function RegisterVerifiedContent() {
     const searchParams = useSearchParams()
     const router = useRouter();
     const [loading,setLoading] = useState(true)
@@ -69,7 +69,6 @@ export default function RegisterVerified() {
         }));
     };
     return (
-    <main className="bg-white w-full min-h-screen text-black flex flex-col items-center justify-center font-sans">
             <div className="max-w-3xl w-full mx-auto p-4 flex flex-col gap-4  justify-center">
                 <h1 className="text-2xl font-medium">Continue to Register</h1>
                 {
@@ -113,6 +112,15 @@ export default function RegisterVerified() {
                     }
                 </form>
             </div>
-        </main>
   )
+}
+
+export default function RegisterVerified() {
+    return (
+        <main className="bg-white w-full min-h-screen text-black flex flex-col items-center justify-center font-sans">
+            <Suspense fallback={<div>Loading...</div>}>
+                <RegisterVerifiedContent />
+            </Suspense>
+        </main>
+    )
 }
