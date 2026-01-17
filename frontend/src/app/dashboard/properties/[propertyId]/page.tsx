@@ -4,27 +4,58 @@ import React from "react";
 import  Image  from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaHotel, FaLocationDot ,FaBook, FaPlus,FaX} from "react-icons/fa6";
+import { FaHotel, FaLocationDot ,FaBook, FaPlus,FaX, FaPencil, FaTrash} from "react-icons/fa6";
 
-type Params = {
+type Params = Promise<{
   propertyId: string;
-};
+}>;
+
+type Room = {
+    id: string;
+    roomNumber: number;
+    roomTypeId: string;
+}
+
+type RoomType = {
+    id: string;
+    name: string;
+    description: string;
+    basePrice: number;
+    capacity: number;
+    images: string[];
+    rooms: Room[];
+}
+
+type Property = {
+    id: string;
+    name: string;
+    description: string;
+    address: string;
+    categoryId: string;
+    category: {
+        id: string;
+        name: string;
+    };
+    roomTypes: RoomType[];
+}
 
 export default function RoomManagement({ params }: { params : Params}){
     const {propertyId} = React.use(params)
     console.log(propertyId)
-    const [property,setProperty] = useState(null)
+    const [property,setProperty] = useState<Property | null>(null)
+    
+    const fetchProperty = async(id:string) => {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/${id}`,{
+            method:'GET',
+            credentials: 'include'
+        })
+        const result = await response.json()
+        console.log(result)
+        setProperty(result.property)
+    }
+    
     useEffect(()=>{
-        const fetchProperties = async(id:string) => {
-            const response = await fetch(`http://localhost:8000/property/${id}`,{
-                method:'GET',
-                credentials: 'include'
-            })
-            const result = await response.json()
-            console.log(result)
-            setProperty(result.property)
-        }
-        fetchProperties(propertyId)
+        fetchProperty(propertyId)
     },[])
 
     const [formData,setFormData]= useState({
@@ -48,7 +79,7 @@ export default function RoomManagement({ params }: { params : Params}){
             form.append("imageUrl",imageFile)
         }
         try{
-            const response = await fetch(`http://localhost:8000/room-type/create/${propertyId}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room-type/create/${propertyId}`, {
                 method: "POST",
                 body: form,
                 credentials: "include"
@@ -62,6 +93,8 @@ export default function RoomManagement({ params }: { params : Params}){
             setFormData({name:"",description:"",basePrice:"",capacity:"",categoryId:""})
             setPreview(null)
             setImageFile(null)
+            fetchProperty(propertyId)
+            setIsCreateRoomTypeModalOpen(false)
             console.log(data)
         }catch(err){
             console.error(err)
@@ -86,132 +119,403 @@ export default function RoomManagement({ params }: { params : Params}){
         setImageFile(file)
         setPreview(URL.createObjectURL(file))
         }
-        // const filesArray = Array.from(e.target.files);
-
-        // setImageFiles(filesArray);
-
-        // const previewUrls = filesArray.map((file) => URL.createObjectURL(file));
-        // setPreviews(previewUrls);
     };
     const [isCreateRoomTypeModalOpen,setIsCreateRoomTypeModalOpen] = useState(false)
 
+    const [isManageRoomModalOpen, setIsManageRoomModalOpen] = useState(false)
+    const [selectedRoomType, setSelectedRoomType] = useState<RoomType|null>(null)
+    const [rooms, setRooms] = useState<Room[]>([])
+    const [newRoomNumber, setNewRoomNumber] = useState("")
+    const [isEditingRoom, setIsEditingRoom] = useState(false)
+    const [editingRoom, setEditingRoom] = useState<Room|null>(null)
+    const [editRoomNumber, setEditRoomNumber] = useState("")
+
+    const openManageRoomModal = async (roomType: RoomType) => {
+        setSelectedRoomType(roomType)
+        setIsManageRoomModalOpen(true)
+        await fetchRooms(roomType.id)
+    }
+
+    const fetchRooms = async (roomTypeId: string) => {
+        try{
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room/${roomTypeId}`,{
+                method:'GET',
+                credentials: 'include'
+            })
+            const result = await response.json()
+            setRooms(result.rooms || [])
+        }catch(err){
+            console.error(err)
+        }
+    }
+
+    const handleCreateRoom = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if(!selectedRoomType) return
+        try{
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room/create/${selectedRoomType.id}`,{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({ roomNumber: newRoomNumber }),
+                credentials: 'include'
+            })
+            const result = await response.json()
+            if(!response.ok){
+                throw new Error(result.error || 'Failed to create room')
+            }
+            alert("Room created successfully")
+            setNewRoomNumber("")
+            await fetchRooms(selectedRoomType.id)
+            await fetchProperty(propertyId)
+        }catch(err){
+            console.error(err)
+            alert("Failed to create room")
+        }
+    }
+
+    const handleEditRoom = (room: Room) => {
+        setIsEditingRoom(true)
+        setEditingRoom(room)
+        setEditRoomNumber(room.roomNumber.toString())
+    }
+
+    const handleUpdateRoom = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if(!editingRoom) return
+        try{
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room/update/${editingRoom.id}`,{
+                method:'PUT',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({ roomNumber: editRoomNumber }),
+                credentials: 'include'
+            })
+            const result = await response.json()
+            if(!response.ok){
+                throw new Error(result.error || 'Failed to update room')
+            }
+            alert("Room updated successfully")
+            setIsEditingRoom(false)
+            setEditingRoom(null)
+            setEditRoomNumber("")
+            if(selectedRoomType) await fetchRooms(selectedRoomType.id)
+            await fetchProperty(propertyId)
+        }catch(err){
+            console.error(err)
+            alert("Failed to update room")
+        }
+    }
+
+    const handleDeleteRoom = async (roomId: string) => {
+        if(!confirm("Are you sure you want to delete this room?")) return
+        try{
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room/delete/${roomId}`,{
+                method:'DELETE',
+                credentials: 'include'
+            })
+            const result = await response.json()
+            if(!response.ok){
+                throw new Error(result.error || 'Failed to delete room')
+            }
+            alert("Room deleted successfully")
+            if(selectedRoomType) await fetchRooms(selectedRoomType.id)
+            await fetchProperty(propertyId)
+        }catch(err){
+            console.error(err)
+            alert("Failed to delete room")
+        }
+    }
+
+    const closeManageRoomModal = () => {
+        setIsManageRoomModalOpen(false)
+        setSelectedRoomType(null)
+        setRooms([])
+        setNewRoomNumber("")
+        setIsEditingRoom(false)
+        setEditingRoom(null)
+        setEditRoomNumber("")
+    }
+
     const pathname = usePathname();
 
-  const segments = pathname
-    .split("/")
-    .filter(Boolean);
+    const segments = pathname
+        .split("/")
+        .filter(Boolean);
+
     return(
-        <div className="mt-20 pt-5 px-5 bg-neutral-100 w-full min-h-screen">
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-      {segments.map((segment, index) => {
-        const href = "/" + segments.slice(0, index + 1).join("/");
-        const isLast = index === segments.length - 1;
+        <div className="pt-4 md:pt-5 px-3 md:px-5 bg-neutral-100 w-full min-h-screen">
+            <div className="flex items-center gap-2 text-xs md:text-sm text-gray-500 overflow-x-auto pb-2 whitespace-nowrap">
+                {segments.map((segment, index) => {
+                    const href = "/" + segments.slice(0, index + 1).join("/");
+                    const isLast = index === segments.length - 1;
 
-        // bikin label lebih rapi
-        const label = segment
-          .replace(/-/g, " ")
-          .replace(/\b\w/g, (c) => c.toUpperCase());
+                    const label = segment
+                        .replace(/-/g, " ")
+                        .replace(/\b\w/g, (c) => c.toUpperCase());
 
-        return (
-          <div key={href} className="flex items-center gap-2">
-            {!isLast ? (
-              <Link href={href} className="hover:underline">
-                {label}
-              </Link>
-            ) : (
-              <span className="font-medium text-gray-900">
-                {label}
-              </span>
-            )}
-
-            {!isLast && <span>/</span>}
-          </div>
-        );
-      })}
-            </div>
-            {
-                isCreateRoomTypeModalOpen &&
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-                    {/* Card */}             
-                    <div className="w-[360px] max-w-[90vw] h-[640px] max-h-[90vh] bg-white rounded-2xl shadow-xl relative flex flex-col px-4 py-4 gap-4">
-                        <div className="flex justify-end border-b-[1px] border-neutral-300">
-                            <button onClick={()=>setIsCreateRoomTypeModalOpen(false)} className="pb-2 pr-2"><FaX size={15} className="text-neutral-800 hover:text-rose-500 hover:scale-105 transition"/></button>
+                    return (
+                        <div key={href} className="flex items-center gap-2">
+                            {!isLast ? (
+                                <Link href={href} className="hover:underline">
+                                    {label}
+                                </Link>
+                            ) : (
+                                <span className="font-medium text-gray-900">
+                                    {label}
+                                </span>
+                            )}
+                            {!isLast && <span>/</span>}
                         </div>
-                        <h1 className="text-xl font-semibold mb-4">Create New Room Type</h1>
+                    );
+                })}
+            </div>
+
+            {isCreateRoomTypeModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                    <div className="w-full max-w-[360px] md:w-[360px] max-h-[90vh] bg-white rounded-2xl shadow-xl relative flex flex-col px-4 py-4 gap-4 overflow-y-auto">
+                        <div className="flex justify-between items-center border-b-[1px] border-neutral-300 pb-2">
+                            <h1 className="text-lg md:text-xl font-semibold">Create New Room Type</h1>
+                            <button onClick={()=>setIsCreateRoomTypeModalOpen(false)} className="p-2">
+                                <FaX size={15} className="text-neutral-800 hover:text-rose-500 hover:scale-105 transition"/>
+                            </button>
+                        </div>
+                        
                         <form className="flex flex-col gap-4 items-center w-full justify-center" onSubmit={handleSubmit}>
-                    <input type="text" placeholder="Room Type Name" required  onChange={(e)=>handleChange(e)} name="name" value={formData.name} className='w-full p-2 border-[1px] border-neutral-300 rounded-lg active:border-rose-600 focus:border-rose-600 transition'></input>
-                    <input type="textbox" placeholder="Room Type Description" required  onChange={(e)=>handleChange(e)} name="description" value={formData.description} className='w-full p-2 border-[1px] border-neutral-300 rounded-lg active:border-rose-600 focus:border-rose-600 transition'></input>
-                    <input type="number" placeholder="Base Price" required  onChange={(e)=>handleChange(e)} name="basePrice" value={formData.basePrice} className='w-full p-2 border-[1px] border-neutral-300 rounded-lg active:border-rose-600 focus:border-rose-600 transition'></input>
-                    <input type="number" placeholder="Capacity" required  onChange={(e)=>handleChange(e)} name="capacity" value={formData.capacity} className='w-full p-2 border-[1px] border-neutral-300 rounded-lg active:border-rose-600 focus:border-rose-600 transition'></input>
-                    
-                        <img src={preview} className="w-32 h-32 object-cover" />
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                    />
+                            <input 
+                                type="text" 
+                                placeholder="Room Type Name" 
+                                required  
+                                onChange={(e)=>handleChange(e)} 
+                                name="name" 
+                                value={formData.name} 
+                                className='w-full p-3 text-sm md:text-base border-[1px] border-neutral-300 rounded-lg focus:border-rose-600 focus:outline-none transition'
+                            />
+                            <input 
+                                type="text" 
+                                placeholder="Room Type Description" 
+                                required  
+                                onChange={(e)=>handleChange(e)} 
+                                name="description" 
+                                value={formData.description} 
+                                className='w-full p-3 text-sm md:text-base border-[1px] border-neutral-300 rounded-lg focus:border-rose-600 focus:outline-none transition'
+                            />
+                            <input 
+                                type="number" 
+                                placeholder="Base Price" 
+                                required  
+                                onChange={(e)=>handleChange(e)} 
+                                name="basePrice" 
+                                value={formData.basePrice} 
+                                className='w-full p-3 text-sm md:text-base border-[1px] border-neutral-300 rounded-lg focus:border-rose-600 focus:outline-none transition'
+                            />
+                            <input 
+                                type="number" 
+                                placeholder="Capacity" 
+                                required  
+                                onChange={(e)=>handleChange(e)} 
+                                name="capacity" 
+                                value={formData.capacity} 
+                                className='w-full p-3 text-sm md:text-base border-[1px] border-neutral-300 rounded-lg focus:border-rose-600 focus:outline-none transition'
+                            />
+                            
+                            {preview && (
+                                <img src={preview} className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-lg" />
+                            )}
+                            
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageChange}
+                                className="w-full text-sm"
+                            />
 
-
-                    <button type="submit" className="bg-rose-600 text-white px-4 py-2 rounded-lg font-semibold tracking-wide w-full">Create Room Type</button>
-
-                </form>
+                            <button 
+                                type="submit" 
+                                className="bg-rose-600 text-white px-4 py-3 rounded-lg font-semibold tracking-wide w-full text-sm md:text-base hover:bg-rose-700 transition"
+                            >
+                                Create Room Type
+                            </button>
+                        </form>
                     </div>
                 </div>
-            }
-            {property?
-            <>
-            <div className="h-25 flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-black ">{property.name}</h1>
-                <button onClick={()=>setIsCreateRoomTypeModalOpen(true)} className="group rounded-full justify-center items-center flex bg-rose-500 px-8 py-3 gap-3 text-white hover:cursor-pointer shadow-sm hover:shadow-md transition">
-                    <FaPlus size={20} className="group-hover:rotate-90 group-hover:scale-105 transition duration-300"/>
-                    <h1 className="font-semibold">Create New Room Type</h1>
-                </button>
-            </div>            
-            <div className="gap-5 flex flex-col">
-                {
-                    property.roomTypes.length > 0 ? 
-                        <div className="flex flex-col gap-5">
-                            {
-                                property.roomTypes.map((roomType)=>{
-                                    return(
-                                        <div key={roomType.id} className=" gap-2 grid grid-cols-5 border rounded-xl bg-white shadow p-5 gap-5 items-center">
-                                            <div className="relative w-full aspect-square rounded-xl overflow-hidden">
-                                                <Image
-                                                    fill
-                                                    src={roomType.images[0]}
-                                                    alt={roomType.name}
-                                                    className="object-cover h-full w-full hover:scale-110 transition"
-                                                    />
-                                            </div>
-                                            <div className="flex flex-col gap-2">
-                                                <h1 className="text-xl font-semibold">{roomType.name}</h1>
-                                                <p className="text-neutral-700 font-light">{roomType.description}</p>
-                                            </div>
-                                            <div className="flex flex-col gap-2 items-center">
-                                                <p className="text-neutral-700 font-semibold">Rp{Number(roomType.basePrice).toLocaleString("en-US")}</p>
-                                                <p className="text-neutral-700 font-semibold">Capacity {roomType.capacity} Guests</p>
-                                            </div>
-                                            <div className="flex flex-col gap-2 items-center">
-                                                <p className="text-neutral-700 font-semibold">Total Rooms: {roomType.rooms.length}</p>
-                                                <button className="text-sm bg-rose-500 text-white px-4 py-2 rounded-lg font-semibold tracking-wide w-full hover:cursor-pointer transition">Add Room</button>
-                                            </div>
-                                            <div className="flex flex-col gap-2 items-center">
-                                                <button className="text-sm bg-rose-500 text-white px-4 py-2 rounded-lg font-semibold tracking-wide w-full hover:cursor-pointer transition">Edit</button>
-                                                <button className="text-sm bg-rose-500 text-white px-4 py-2 rounded-lg font-semibold tracking-wide w-full hover:cursor-pointer transition">Delete</button>
-                                            </div>
-                                        </div>
-                                    )
-                                })
-                            }
+            )}
+
+            {isManageRoomModalOpen && selectedRoomType && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                    <div className="w-full max-w-[450px] md:w-[450px] max-h-[90vh] bg-white rounded-2xl shadow-xl relative flex flex-col px-4 py-4 gap-4 overflow-y-auto">
+                        <div className="flex justify-between items-center border-b-[1px] border-neutral-300 pb-2">
+                            <h1 className="text-lg md:text-xl font-semibold">Manage Rooms - {selectedRoomType.name}</h1>
+                            <button onClick={closeManageRoomModal} className="p-2">
+                                <FaX size={15} className="text-neutral-800 hover:text-rose-500 hover:scale-105 transition"/>
+                            </button>
                         </div>
-                    : 
-                    <p>Room Unavailable</p>
-                }
-            </div>
-            </>
-            : <div>Invalid PropertyId</div>
-            }
-            
+
+                        <form className="flex gap-2 items-center" onSubmit={handleCreateRoom}>
+                            <input
+                                type="number"
+                                placeholder="Room Number"
+                                value={newRoomNumber}
+                                onChange={(e)=>setNewRoomNumber(e.target.value)}
+                                className="flex-1 p-3 text-sm border-[1px] border-neutral-300 rounded-lg focus:border-rose-600 focus:outline-none transition"
+                                required
+                            />
+                            <button 
+                                type="submit"
+                                className="bg-rose-500 text-white px-4 py-3 rounded-lg font-semibold text-sm hover:bg-rose-600 transition flex items-center gap-2"
+                            >
+                                <FaPlus size={14}/>
+                                Add Room
+                            </button>
+                        </form>
+
+                        {isEditingRoom && editingRoom && (
+                            <form className="flex gap-2 items-center bg-neutral-100 p-3 rounded-lg" onSubmit={handleUpdateRoom}>
+                                <span className="text-sm text-neutral-600">Edit Room:</span>
+                                <input
+                                    type="number"
+                                    placeholder="Room Number"
+                                    value={editRoomNumber}
+                                    onChange={(e)=>setEditRoomNumber(e.target.value)}
+                                    className="flex-1 p-2 text-sm border-[1px] border-neutral-300 rounded-lg focus:border-rose-600 focus:outline-none transition"
+                                    required
+                                />
+                                <button 
+                                    type="submit"
+                                    className="bg-rose-500 text-white px-3 py-2 rounded-lg font-semibold text-sm hover:bg-rose-600 transition"
+                                >
+                                    Save
+                                </button>
+                                <button 
+                                    type="button"
+                                    onClick={()=>{setIsEditingRoom(false); setEditingRoom(null); setEditRoomNumber("")}}
+                                    className="bg-neutral-400 text-white px-3 py-2 rounded-lg font-semibold text-sm hover:bg-neutral-500 transition"
+                                >
+                                    Cancel
+                                </button>
+                            </form>
+                        )}
+
+                        <div className="flex flex-col gap-2 max-h-[300px] overflow-y-auto">
+                            {rooms.length > 0 ? (
+                                rooms.map((room) => (
+                                    <div key={room.id} className="flex items-center justify-between bg-neutral-50 p-3 rounded-lg border border-neutral-200">
+                                        <div className="flex items-center gap-3">
+                                            <span className="bg-rose-100 text-rose-600 px-3 py-1 rounded-full text-sm font-semibold">
+                                                Room {room.roomNumber}
+                                            </span>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <button 
+                                                onClick={()=>handleEditRoom(room)}
+                                                className="p-2 text-rose-500 hover:bg-rose-100 rounded-lg transition"
+                                            >
+                                                <FaPencil size={14}/>
+                                            </button>
+                                            <button 
+                                                onClick={()=>handleDeleteRoom(room.id)}
+                                                className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition"
+                                            >
+                                                <FaTrash size={14}/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="text-center py-6 text-neutral-500">
+                                    <p className="text-sm">No rooms available</p>
+                                    <p className="text-xs mt-1">Add a room above</p>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="border-t border-neutral-200 pt-3 text-sm text-neutral-500 text-center">
+                            Total Rooms: {rooms.length}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {property ? (
+                <>
+                    <div className="min-h-[60px] md:h-25 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 mb-4 md:mb-0">
+                        <h1 className="text-xl md:text-2xl font-bold text-black">{property.name}</h1>
+                        <button 
+                            onClick={()=>setIsCreateRoomTypeModalOpen(true)} 
+                            className="group rounded-full justify-center items-center flex bg-rose-500 px-4 md:px-8 py-2 md:py-3 gap-2 md:gap-3 text-white hover:cursor-pointer shadow-sm hover:shadow-md transition"
+                        >
+                            <FaPlus size={16} className="md:w-5 md:h-5 group-hover:rotate-90 group-hover:scale-105 transition duration-300"/>
+                            <h1 className="font-semibold text-xs md:text-base">Create New Room Type</h1>
+                        </button>
+                    </div>
+                    
+                    <div className="gap-4 md:gap-5 flex flex-col">
+                        {property.roomTypes.length > 0 ? (
+                            <div className="flex flex-col gap-4 md:gap-5">
+                                {property.roomTypes.map((roomType: RoomType) => (
+                                    <div 
+                                        key={roomType.id} 
+                                        className="grid grid-cols-1 md:grid-cols-5 rounded-xl bg-white shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-4 md:p-5 gap-4 md:gap-5 items-center"
+                                    >
+                                        <div className="relative w-full aspect-video md:aspect-square rounded-xl overflow-hidden">
+                                            <Image
+                                                fill
+                                                src={roomType.images[0]}
+                                                alt={roomType.name}
+                                                className="object-cover h-full w-full hover:scale-110 transition"
+                                            />
+                                        </div>
+                                        
+                                        <div className="flex flex-col gap-2">
+                                            <h1 className="text-lg md:text-xl font-semibold">{roomType.name}</h1>
+                                            <p className="text-sm md:text-base text-neutral-700 font-light line-clamp-2">{roomType.description}</p>
+                                        </div>
+                                        
+                                        <div className="flex flex-row md:flex-col gap-4 md:gap-2 md:items-center">
+                                            <p className="text-sm md:text-base text-neutral-700 font-semibold">
+                                                Rp{Number(roomType.basePrice).toLocaleString("en-US")}
+                                            </p>
+                                            <p className="text-sm md:text-base text-neutral-700 font-semibold">
+                                                {roomType.capacity} Guests
+                                            </p>
+                                        </div>
+                                        
+                                        <div className="flex flex-row md:flex-col gap-2 md:items-center">
+                                            <p className="text-sm md:text-base text-neutral-700 font-semibold flex-1 md:flex-none">
+                                                Rooms: {roomType.rooms.length}
+                                            </p>
+                                            <button 
+                                                onClick={()=>openManageRoomModal(roomType)}
+                                                className="text-xs md:text-sm bg-rose-500 text-white px-3 md:px-4 py-2 rounded-lg font-semibold tracking-wide md:w-full hover:cursor-pointer hover:bg-rose-600 transition"
+                                            >
+                                                Manage Room
+                                            </button>
+                                        </div>
+                                        
+                                        <div className="flex flex-row md:flex-col gap-2 md:items-center">
+                                            <button className="flex-1 md:flex-none text-xs md:text-sm bg-rose-500 text-white px-3 md:px-4 py-2 rounded-lg font-semibold tracking-wide md:w-full hover:cursor-pointer hover:bg-rose-600 transition">
+                                                Edit
+                                            </button>
+                                            <button className="flex-1 md:flex-none text-xs md:text-sm bg-red-600 text-white px-3 md:px-4 py-2 rounded-lg font-semibold tracking-wide md:w-full hover:cursor-pointer hover:bg-red-700 transition">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="text-center py-10 text-gray-500">
+                                <p className="text-lg">No room types available</p>
+                                <p className="text-sm mt-2">Click "Create New Room Type" to add one</p>
+                            </div>
+                        )}
+                    </div>
+                </>
+            ) : (
+                <div className="text-center py-10 text-gray-500">Invalid PropertyId</div>
+            )}
         </div>
     )
 }

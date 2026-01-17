@@ -1,0 +1,163 @@
+"filename", "language", "TypeScript", "JavaScript", "JSON with Comments", "JSON", "Prisma", "MS SQL", "XML", "TypeScript JSX", "PostCSS", "Markdown", "comment", "blank", "total"
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/index.js", "JavaScript", 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 15
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/prisma.config.d.ts", "TypeScript", 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 4
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/prisma.config.js", "JavaScript", 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 15
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/configs/cloudinary.config.d.ts", "TypeScript", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/configs/cloudinary.config.js", "JavaScript", 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 10
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/controllers/auth.controllers.d.ts", "TypeScript", 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 14
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/controllers/auth.controllers.js", "JavaScript", 0, 303, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 313
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/controllers/peak-season-rate.controller.d.ts", "TypeScript", 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 4
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/controllers/peak-season-rate.controller.js", "JavaScript", 0, 52, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 53
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/controllers/property.controllers.d.ts", "TypeScript", 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 9
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/controllers/property.controllers.js", "JavaScript", 0, 239, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 243
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/controllers/roomType.controllers.d.ts", "TypeScript", 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 5
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/controllers/roomType.controllers.js", "JavaScript", 0, 73, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 74
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/browser.d.ts", "TypeScript", 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 0, 40
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/browser.js", "JavaScript", 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 18
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/client.d.ts", "TypeScript", 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 42, 0, 57
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/client.js", "JavaScript", 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 36
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/commonInputTypes.d.ts", "TypeScript", 405, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 406
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/commonInputTypes.js", "JavaScript", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 11
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/enums.d.ts", "TypeScript", 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 16
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/enums.js", "JavaScript", 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 22
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/internal/class.d.ts", "TypeScript", 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 140, 0, 193
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/internal/class.js", "JavaScript", 0, 29, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 41
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/internal/prismaNamespace.d.ts", "TypeScript", 892, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 0, 1097
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/internal/prismaNamespace.js", "JavaScript", 0, 122, 0, 0, 0, 0, 0, 0, 0, 0, 47, 0, 169
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/internal/prismaNamespaceBrowser.d.ts", "TypeScript", 119, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 135
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/internal/prismaNamespaceBrowser.js", "JavaScript", 0, 105, 0, 0, 0, 0, 0, 0, 0, 0, 34, 0, 139
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models.d.ts", "TypeScript", 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 9
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models.js", "JavaScript", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models/PeakSeasonRate.d.ts", "TypeScript", 715, 0, 0, 0, 0, 0, 0, 0, 0, 0, 639, 0, 1354
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models/PeakSeasonRate.js", "JavaScript", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models/Property.d.ts", "TypeScript", 982, 0, 0, 0, 0, 0, 0, 0, 0, 0, 653, 0, 1635
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models/Property.js", "JavaScript", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models/Room.d.ts", "TypeScript", 668, 0, 0, 0, 0, 0, 0, 0, 0, 0, 663, 0, 1331
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models/Room.js", "JavaScript", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models/RoomAvailability.d.ts", "TypeScript", 578, 0, 0, 0, 0, 0, 0, 0, 0, 0, 629, 0, 1207
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models/RoomAvailability.js", "JavaScript", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models/RoomType.d.ts", "TypeScript", 953, 0, 0, 0, 0, 0, 0, 0, 0, 0, 678, 0, 1631
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models/RoomType.js", "JavaScript", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models/User.d.ts", "TypeScript", 688, 0, 0, 0, 0, 0, 0, 0, 0, 0, 647, 0, 1335
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models/User.js", "JavaScript", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models/propertyCategory.d.ts", "TypeScript", 509, 0, 0, 0, 0, 0, 0, 0, 0, 0, 647, 0, 1156
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/generated/prisma/models/propertyCategory.js", "JavaScript", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/index.d.ts", "TypeScript", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/index.js", "JavaScript", 0, 29, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 31
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/lib/jwt.d.ts", "TypeScript", 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 9
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/lib/jwt.js", "JavaScript", 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 29
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/lib/prisma.d.ts", "TypeScript", 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 4
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/lib/prisma.js", "JavaScript", 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 10
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/middlewares/file-upload.d.ts", "TypeScript", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/middlewares/file-upload.js", "JavaScript", 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 30
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/routes/auth.routes.d.ts", "TypeScript", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/routes/auth.routes.js", "JavaScript", 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 20
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/routes/peak-season-rate.route.d.ts", "TypeScript", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/routes/peak-season-rate.route.js", "JavaScript", 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 10
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/routes/property.route.d.ts", "TypeScript", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/routes/property.route.js", "JavaScript", 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 15
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/routes/roomType.route.d.ts", "TypeScript", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/routes/roomType.route.js", "JavaScript", 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 10
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/services/nodemailer-email.d.ts", "TypeScript", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/services/nodemailer-email.js", "JavaScript", 0, 65, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 66
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/services/resend-email.d.ts", "TypeScript", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/services/resend-email.js", "JavaScript", 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 14
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/utils/createAuthToken.d.ts", "TypeScript", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 7
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/utils/createAuthToken.js", "JavaScript", 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 14
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/utils/hashPassword.d.ts", "TypeScript", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/utils/hashPassword.js", "JavaScript", 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 6
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/utils/verifyAuthToken.d.ts", "TypeScript", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3
+"/Users/qaaf/Projects/final project purwadhika/backend/dist/src/utils/verifyAuthToken.js", "JavaScript", 0, 17, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 19
+"/Users/qaaf/Projects/final project purwadhika/backend/package-lock.json", "JSON", 0, 0, 0, 4422, 0, 0, 0, 0, 0, 0, 0, 1, 4423
+"/Users/qaaf/Projects/final project purwadhika/backend/package.json", "JSON", 0, 0, 0, 45, 0, 0, 0, 0, 0, 0, 0, 1, 46
+"/Users/qaaf/Projects/final project purwadhika/backend/prisma.config.ts", "TypeScript", 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 16
+"/Users/qaaf/Projects/final project purwadhika/backend/prisma/migrations/20251208082505_init/migration.sql", "MS SQL", 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 3, 4, 20
+"/Users/qaaf/Projects/final project purwadhika/backend/prisma/migrations/20251208090020_change_password_name_email_to_required/migration.sql", "MS SQL", 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 9, 1, 14
+"/Users/qaaf/Projects/final project purwadhika/backend/prisma/migrations/20251208142100_adding_model_property_dan_anak_anaknya/migration.sql", "MS SQL", 0, 0, 0, 0, 0, 59, 0, 0, 0, 0, 11, 16, 86
+"/Users/qaaf/Projects/final project purwadhika/backend/prisma/migrations/20251211164105_adding_model_room_and_changing_previous_model_room_into_room_type/migration.sql", "MS SQL", 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 24, 13, 74
+"/Users/qaaf/Projects/final project purwadhika/backend/prisma/migrations/20260107055733_changing_peakseasonrate_model/migration.sql", "MS SQL", 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 12, 4, 22
+"/Users/qaaf/Projects/final project purwadhika/backend/prisma/migrations/20260107064641_kembaliin_peakseasonrate/migration.sql", "MS SQL", 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 8, 2, 12
+"/Users/qaaf/Projects/final project purwadhika/backend/prisma/migrations/20260109140720_adding_social_login/migration.sql", "MS SQL", 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 2, 2, 7
+"/Users/qaaf/Projects/final project purwadhika/backend/prisma/migrations/20260111042129_add_reason_roomavailibility/migration.sql", "MS SQL", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 3
+"/Users/qaaf/Projects/final project purwadhika/backend/prisma/schema.prisma", "Prisma", 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 14, 29, 143
+"/Users/qaaf/Projects/final project purwadhika/backend/src/configs/cloudinary.config.ts", "TypeScript", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 12
+"/Users/qaaf/Projects/final project purwadhika/backend/src/controllers/auth.controllers.ts", "TypeScript", 300, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 53, 362
+"/Users/qaaf/Projects/final project purwadhika/backend/src/controllers/dashboard.controllers.ts", "TypeScript", 125, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 16, 153
+"/Users/qaaf/Projects/final project purwadhika/backend/src/controllers/peak-season-rate.controller.ts", "TypeScript", 51, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 53
+"/Users/qaaf/Projects/final project purwadhika/backend/src/controllers/property.controllers.ts", "TypeScript", 233, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 14, 250
+"/Users/qaaf/Projects/final project purwadhika/backend/src/controllers/room-availability.controllers.ts", "TypeScript", 190, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 17, 218
+"/Users/qaaf/Projects/final project purwadhika/backend/src/controllers/room.controllers.ts", "TypeScript", 83, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 88
+"/Users/qaaf/Projects/final project purwadhika/backend/src/controllers/roomType.controllers.ts", "TypeScript", 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 75
+"/Users/qaaf/Projects/final project purwadhika/backend/src/index.ts", "TypeScript", 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, 42
+"/Users/qaaf/Projects/final project purwadhika/backend/src/lib/jwt.ts", "TypeScript", 28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 7, 39
+"/Users/qaaf/Projects/final project purwadhika/backend/src/lib/prisma.ts", "TypeScript", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 12
+"/Users/qaaf/Projects/final project purwadhika/backend/src/middlewares/file-upload.ts", "TypeScript", 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 32
+"/Users/qaaf/Projects/final project purwadhika/backend/src/nothing/nodemailer-test.js", "JavaScript", 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 25
+"/Users/qaaf/Projects/final project purwadhika/backend/src/nothing/random-id.js", "JavaScript", 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4
+"/Users/qaaf/Projects/final project purwadhika/backend/src/nothing/resend-test.js", "JavaScript", 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 18
+"/Users/qaaf/Projects/final project purwadhika/backend/src/routes/auth.routes.ts", "TypeScript", 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 21
+"/Users/qaaf/Projects/final project purwadhika/backend/src/routes/dashboard.route.ts", "TypeScript", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 10
+"/Users/qaaf/Projects/final project purwadhika/backend/src/routes/peak-season-rate.route.ts", "TypeScript", 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 11
+"/Users/qaaf/Projects/final project purwadhika/backend/src/routes/property.route.ts", "TypeScript", 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 16
+"/Users/qaaf/Projects/final project purwadhika/backend/src/routes/room-availability.route.ts", "TypeScript", 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 22
+"/Users/qaaf/Projects/final project purwadhika/backend/src/routes/room.route.ts", "TypeScript", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 12
+"/Users/qaaf/Projects/final project purwadhika/backend/src/routes/roomType.route.ts", "TypeScript", 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 11
+"/Users/qaaf/Projects/final project purwadhika/backend/src/services/nodemailer-email.ts", "TypeScript", 61, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 71
+"/Users/qaaf/Projects/final project purwadhika/backend/src/services/resend-email.ts", "TypeScript", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 14
+"/Users/qaaf/Projects/final project purwadhika/backend/src/utils/createAuthToken.ts", "TypeScript", 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 24
+"/Users/qaaf/Projects/final project purwadhika/backend/src/utils/hashPassword.ts", "TypeScript", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 7
+"/Users/qaaf/Projects/final project purwadhika/backend/src/utils/verifyAuthToken.ts", "TypeScript", 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, 22
+"/Users/qaaf/Projects/final project purwadhika/backend/tsconfig.json", "JSON with Comments", 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 16, 7, 45
+"/Users/qaaf/Projects/final project purwadhika/frontend/README.md", "Markdown", 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 14, 37
+"/Users/qaaf/Projects/final project purwadhika/frontend/components.json", "JSON", 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 1, 23
+"/Users/qaaf/Projects/final project purwadhika/frontend/eslint.config.mjs", "JavaScript", 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 19
+"/Users/qaaf/Projects/final project purwadhika/frontend/next.config.ts", "TypeScript", 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 16
+"/Users/qaaf/Projects/final project purwadhika/frontend/package-lock.json", "JSON", 0, 0, 0, 8353, 0, 0, 0, 0, 0, 0, 0, 1, 8354
+"/Users/qaaf/Projects/final project purwadhika/frontend/package.json", "JSON", 0, 0, 0, 48, 0, 0, 0, 0, 0, 0, 0, 1, 49
+"/Users/qaaf/Projects/final project purwadhika/frontend/postcss.config.mjs", "JavaScript", 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 8
+"/Users/qaaf/Projects/final project purwadhika/frontend/public/file.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/Users/qaaf/Projects/final project purwadhika/frontend/public/globe.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/Users/qaaf/Projects/final project purwadhika/frontend/public/next.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/Users/qaaf/Projects/final project purwadhika/frontend/public/vercel.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/Users/qaaf/Projects/final project purwadhika/frontend/public/window.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/api/auth/[...nextauth]/route.ts", "TypeScript", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/coba/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 4, 37
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/dashboard/create-property/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 292, 0, 0, 22, 23, 337
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/dashboard/edit-property/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 104, 0, 0, 0, 17, 121
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/dashboard/layout.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 63, 0, 0, 5, 7, 75
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/dashboard/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 374, 0, 0, 10, 20, 404
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/dashboard/peak-season-rate/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 322, 0, 0, 14, 24, 360
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/dashboard/properties/[propertyId]/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 468, 0, 0, 14, 40, 522
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/dashboard/properties/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 145, 0, 0, 12, 8, 165
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/dashboard/room-availability/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 569, 0, 0, 29, 49, 647
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/globals.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 0, 119, 0, 1, 6, 126
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/layout.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 6, 42
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/login/complete/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 54, 0, 0, 3, 9, 66
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/login/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 77, 0, 0, 2, 9, 88
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 51, 0, 0, 2, 5, 58
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/profile/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 336, 0, 0, 13, 24, 373
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/register/complete/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 62, 0, 0, 4, 10, 76
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/register/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 115, 0, 0, 6, 7, 128
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/register/verified/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 98, 0, 0, 0, 4, 102
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/reset-password/verified/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 93, 0, 0, 0, 4, 97
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/app/search/page.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 39, 0, 0, 2, 0, 41
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/auth.ts", "TypeScript", 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 31
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/components/Calendar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 194, 0, 0, 0, 23, 217
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/components/CategoryBar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 49, 0, 0, 0, 5, 54
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/components/Footer.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 19, 0, 0, 0, 2, 21
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/components/GuestPicker.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 91, 0, 0, 2, 6, 99
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/components/ListingCard.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 48, 0, 0, 6, 5, 59
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/components/Navbar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 179, 0, 0, 11, 22, 212
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/components/Navbar2.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 616, 0, 0, 29, 56, 701
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/components/PlacePicker.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 25, 0, 0, 0, 2, 27
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/components/PropertyCard.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 48, 0, 0, 6, 5, 59
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/components/Providers.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 2, 11
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/components/ui/button.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 57, 0, 0, 0, 6, 63
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/components/ui/calendar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 210, 0, 0, 0, 11, 221
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/components/ui/card.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 83, 0, 0, 0, 10, 93
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/components/ui/carousel.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 214, 0, 0, 0, 28, 242
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/lib/utils.ts", "TypeScript", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 7
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/middleware.ts", "TypeScript", 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 8, 38
+"/Users/qaaf/Projects/final project purwadhika/frontend/src/stores/authStore.ts", "TypeScript", 35, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 11, 66
+"/Users/qaaf/Projects/final project purwadhika/frontend/tsconfig.json", "JSON with Comments", 0, 0, 34, 0, 0, 0, 0, 0, 0, 0, 0, 1, 35
+"Total", "-", 8153, 1300, 56, 12890, 100, 125, 5, 5173, 119, 23, 5588, 776, 34308

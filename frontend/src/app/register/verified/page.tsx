@@ -1,64 +1,67 @@
 'use client'
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import {useEffect,useState} from 'react';
 
 export default function RegisterVerified() {
     const searchParams = useSearchParams()
+    const router = useRouter();
     const [loading,setLoading] = useState(true)
-    const [decoded,setDecoded] = useState(null)
+    const [decoded,setDecoded] = useState<any>(null)
     const [formData,setFormData]= useState({
         name:"",
         password:"",
-        confirmPassword:""
+        confirmPassword:"",
+        role: "CUSTOMER" 
     })
     const token = searchParams.get('token')
+    
     useEffect(()=>{
         const fetchVerification = async()=>{
-            const res = await fetch('http://localhost:8000/auth/token-verification',{
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/token-verification`,{
                 headers:{"Content-Type":"application/json"},
                 method:"POST",
                 body:JSON.stringify({token})
             })
             const data = await res.json()
             setDecoded(data.decoded)
+            if(data.decoded?.role) {
+                setFormData(prev => ({...prev, role: data.decoded.role}))
+            }
             setLoading(false)
-            console.log(data)
         }
         fetchVerification()
     },[])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("ROLE",decoded.role)
-        console.log("EMAIL",decoded.email)
+        if (!decoded) return;
         try{
-            const response = await fetch('http://localhost:8000/auth/register', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ 
                     email:decoded.email,
-                    role:decoded.role,
+                    role:formData.role,
                     name:formData.name,
                     password:formData.password 
                 }),
             });
             const data = await response.json()
-            console.log(data)
             if (!response.ok) {
                 throw new Error('Failed to send email cause response');
             }
-            alert("Email sent successfully")
-            setFormData({name:"",password:"",confirmPassword:""})
-            console.log(data)
+            alert("Registration successful");
+            router.push('/login');
+            setFormData({name:"",password:"",confirmPassword:"", role: "CUSTOMER"})
         }catch(err){
             console.error(err)
-            alert("Failed to send email dari awal")
+            alert("Registration failed")
         }
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
@@ -77,6 +80,20 @@ export default function RegisterVerified() {
                     )
                 }
                 <form className="flex flex-col gap-4 items-center w-full justify-center" onSubmit={handleSubmit}>
+                    
+                    <div className="w-full">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">I want to register as:</label>
+                        <select 
+                            name="role" 
+                            value={formData.role} 
+                            onChange={handleChange} 
+                            className="w-full p-2 border-[1px] border-neutral-300 rounded-lg active:border-rose-600 focus:border-rose-600 transition bg-white"
+                        >
+                            <option value="CUSTOMER">Customer (Book & Explore)</option>
+                            <option value="TENANT">Tenant (List Properties)</option>
+                        </select>
+                    </div>
+
                     <input type="text" placeholder="Your name" required  onChange={(e)=>handleChange(e)} name="name" value={formData.name} className='w-full p-2 border-[1px] border-neutral-300 rounded-lg active:border-rose-600 focus:border-rose-600 transition'></input>
                     <input type="password" placeholder="Your password" required  onChange={(e)=>handleChange(e)} name="password" value={formData.password} className='w-full p-2 border-[1px] border-neutral-300 rounded-lg active:border-rose-600 focus:border-rose-600 transition'></input>
                     <input type="password" placeholder="Confirm password" required  onChange={(e)=>handleChange(e)} name="confirmPassword" value={formData.confirmPassword} className='w-full p-2 border-[1px] border-neutral-300 rounded-lg active:border-rose-600 focus:border-rose-600 transition'></input>

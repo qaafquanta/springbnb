@@ -1,19 +1,20 @@
 'use client'
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import {useEffect,useState} from 'react';
 
 export default function RegisterVerified() {
     const searchParams = useSearchParams()
     const [loading,setLoading] = useState(true)
-    const [decoded,setDecoded] = useState(null)
+    const [decoded,setDecoded] = useState<any>(null)
     const [formData,setFormData]= useState({
         password:"",
         confirmPassword:""
     })
+    const router = useRouter();
     const token = searchParams.get('token')
     useEffect(()=>{
         const fetchVerification = async()=>{
-            const res = await fetch('http://localhost:8000/auth/verify-reset-password-token',{
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/verify-reset-password-token`,{
                 headers:{"Content-Type":"application/json"},
                 method:"POST",
                 body:JSON.stringify({token})
@@ -28,9 +29,11 @@ export default function RegisterVerified() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!decoded?.email) return;
+        
         console.log("EMAIL",decoded.email)
         try{
-            const response = await fetch('http://localhost:8000/auth/reset-password', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,6 +49,7 @@ export default function RegisterVerified() {
                 throw new Error('Failed to send email cause response');
             }
             alert("Password reset successfully")
+            router.push('/login');
             setFormData({password:"",confirmPassword:""})
             console.log(data)
         }catch(err){

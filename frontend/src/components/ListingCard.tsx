@@ -7,8 +7,6 @@ import { FaHeart } from 'react-icons/fa';
 interface ListingCardProps {
   imageSrc: string;
   city: string;
-  // distance: string;
-  // date: string;
   price?: number;
   rating?: number;
   category: string
@@ -17,8 +15,6 @@ interface ListingCardProps {
 const ListingCard: React.FC<ListingCardProps> = ({
   imageSrc,
   city,
-  // distance,
-  // date,
   price,
   rating,
   category
@@ -40,10 +36,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
         <div className="font-semibold text-lg flex flex-row items-center justify-between">
           <div>{category[0].toUpperCase()+category.slice(1).toLowerCase()} in {city}</div>   
         </div>
-        {/* <div className="font-light text-neutral-500">{distance}</div> */}
-        {/* <div className="font-light text-neutral-500">{date}</div> */}
         <div className="flex flex-row items-center gap-1 opacity-60 font-medium text-sm">
-          <div className="">Rp{price ? price.toLocaleString("en-US") : "329,648"} for 1 night</div>
+          <div className="">{price ? `Rp${price.toLocaleString("id-ID")}` : "-"} / night</div>
           <div className="opacity-50">・</div>
           <div className="flex flex-row items-center gap-1">
             <AiFillStar size={10} />

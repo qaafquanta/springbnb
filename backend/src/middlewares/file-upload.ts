@@ -1,7 +1,6 @@
 import multer from "multer";
 import path from "path";
 
-//untuk upload file atau foto agar tidak pakai data dummy lagi dan menentukan file mana yg akan digunakan untuk menyimpan foto atau file
 export const fileUpload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
@@ -13,7 +12,6 @@ export const fileUpload = multer({
     },
   }),
 
-  //untuk filter file apa saja yg ingin di upload
   fileFilter(req, file, cb) {
     const allowTypes = /jpg|jpeg|png|svg|webp|gif|avif/;
     const extName = path.extname(file.originalname);
@@ -26,6 +24,6 @@ export const fileUpload = multer({
     }
   },
   limits: {
-    fileSize: 1024 * 1024 * 1000,
+    fileSize: 1024 * 1024 * 20,
   },
 });
