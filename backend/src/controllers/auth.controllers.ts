@@ -87,54 +87,49 @@ export const register = async(req:Request,res:Response) => {
 }
 
 export const login = async(req:Request,res:Response) => {
-    try{
-        const {email,password} = req.body;
-        if(!email || !password){
-            return res.status(400).json({message:"Email and password is required"})
-        }
-
-        const user = await prisma.user.findUnique({
-            where:{
-                email
+        try{
+            const {email,password} = req.body;
+            if(!email || !password){
+                return res.status(400).json({message:"Email and password is required"})
             }
-        })
 
-        if(!user){
-            return res.status(400).json({message:"User not found"})
-        }
+            const user = await prisma.user.findUnique({
+                where:{
+                    email
+                }
+            })
 
-        if(!user.password){
-            return res.status(400).json({message:"Please login with Google"})
-        }
-
-        const isPasswordMatch = await compare(password,user.password)
-
-        if(!isPasswordMatch){
-            return res.status(400).json({message:"Invalid password"})
-        }
-
-        const token = createAuthToken({id:user.id,role:user.role})
-
-        res.cookie("authToken", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "none", //"lax"
-            maxAge: 30 * 24 * 60 * 60 * 1000,
-        });
-
-        return res.status(200).send({
-            success:true,
-            result:{
-                email:user.email,
-                name:user.name,
-                role:user.role
+            if(!user){
+                return res.status(400).json({message:"User not found"})
             }
-        })
 
-    }catch(err){
-        res.status(500).json({message:err})
+            if(!user.password){
+                return res.status(400).json({message:"Please login with Google"})
+            }
+
+            const isPasswordMatch = await compare(password,user.password)
+
+            if(!isPasswordMatch){
+                return res.status(400).json({message:"Invalid password"})
+            }
+
+            const token = createAuthToken({id:user.id,role:user.role})
+
+            return res.status(200).send({
+                success:true,
+                token,
+                user:{
+                    email:user.email,
+                    name:user.name,
+                    role:user.role,
+                    profilePicture: user.profilePicture
+                }
+            })
+
+        }catch(err){
+            res.status(500).json({message:err})
+        }
     }
-}
 
 export const authCheck = async(req:Request,res:Response) => {
     try{
