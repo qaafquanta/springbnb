@@ -218,7 +218,7 @@ export const filterAllProperties = async(req:Request,res:Response)=>{
     try{
         const todayYYYYMMDD = new Date().toISOString().split("T")[0];
         const tomorrowYYYYMMDD = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split("T")[0];
-        const {page = 1,limit = 10,city="",categoryId="",checkIn=todayYYYYMMDD,checkOut=tomorrowYYYYMMDD,guests=1,propertyName=""} = req.query;
+        const {page = 1,limit = 10,city="",categoryId="",checkIn=todayYYYYMMDD,checkOut=tomorrowYYYYMMDD,guests=1,propertyName="", sortBy="price", sortOrder="asc"} = req.query;
         const skip = (Number(page)-1) * Number(limit)
 
         const where:any = {
@@ -279,28 +279,92 @@ export const filterAllProperties = async(req:Request,res:Response)=>{
 
         const totalCount = await prisma.property.count({ where })
 
-        const properties = await prisma.property.findMany({
-            include:{
-                category: true,
-                roomTypes: {
-                    include: {
-                        rooms:true,
-                        peakSeasonRate: true
-                    },
-                    orderBy:{
-                        basePrice: 'asc'
-                    },
-                    where:{
-                        capacity: {
-                            gte: Number(guests)
+        let properties;
+
+        if (sortBy === 'price') {
+            const allProps = await prisma.property.findMany({
+                where,
+                select: {
+                    id: true,
+                    roomTypes: {
+                        select: { basePrice: true }
+                    }
+                }
+            });
+
+            allProps.sort((a, b) => {
+                const getMinPrice = (p: any) => {
+                    if (!p.roomTypes || p.roomTypes.length === 0) return Infinity;
+                    return Math.min(...p.roomTypes.map((rt: any) => Number(rt.basePrice)));
+                };
+
+                const priceA = getMinPrice(a);
+                const priceB = getMinPrice(b);
+
+                if (sortOrder === 'asc') {
+                    return priceA - priceB;
+                } else {
+                    if (priceA === Infinity) return 1;
+                    if (priceB === Infinity) return -1;
+                    return priceB - priceA;
+                }
+            });
+
+            const paginatedIds = allProps.slice(skip, skip + Number(limit)).map(p => p.id);
+
+            const unsortedProperties = await prisma.property.findMany({
+                where: { id: { in: paginatedIds } },
+                include: {
+                    category: true,
+                    roomTypes: {
+                        include: {
+                            rooms: true,
+                            peakSeasonRate: true
+                        },
+                        orderBy: {
+                            basePrice: 'asc'
+                        },
+                        where: {
+                           capacity: {
+                               gte: Number(guests)
+                           }
                         }
                     }
                 }
-            },
-            skip,
-            take: Number(limit),
-            where,
-        })
+            });
+
+            properties = paginatedIds.map(id => unsortedProperties.find(p => p.id === id)).filter(Boolean) as any[];
+
+        } else {
+            let orderBy: any = {};
+            if (sortBy === 'name') {
+                orderBy = { name: sortOrder };
+            }
+
+            properties = await prisma.property.findMany({
+                include: {
+                    category: true,
+                    roomTypes: {
+                        include: {
+                            rooms: true,
+                            peakSeasonRate: true
+                        },
+                        orderBy: {
+                            basePrice: 'asc'
+                        },
+                         where: {
+                           capacity: {
+                               gte: Number(guests)
+                           }
+                        }
+                    }
+                },
+                skip,
+                take: Number(limit),
+                where,
+                orderBy
+            });
+        }
 
         const checkInStr = String(checkIn);
         const checkOutStr = String(checkOut);
@@ -335,9 +399,11 @@ export const filterAllProperties = async(req:Request,res:Response)=>{
                 city,
                 categoryId,
                 checkIn,
-                checkOut, 
-                guests,
-                propertyName
+                 checkOut, 
+                 guests,
+                 propertyName,
+                 sortBy,
+                 sortOrder
             } 
         })
     }catch(err){

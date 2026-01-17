@@ -5,14 +5,18 @@ import jwt from "jsonwebtoken";
 export function middleware(req:NextRequest){
     const {pathname} = req.nextUrl;
 
-    if(!pathname.startsWith("/dashboard")){
+    if(!pathname.startsWith("/dashboard")&&!pathname.startsWith("/profile")){
         return NextResponse.next();
     }
-
+    
     const token = req.cookies.get("authToken")?.value
-
+    
     if (!token) {
         return NextResponse.redirect(new URL("/login", req.url));
+    }
+
+    if(pathname.startsWith("/profile")){
+        return NextResponse.next()
     }
 
     try {
@@ -31,5 +35,5 @@ export function middleware(req:NextRequest){
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/tenant/:path*']
+  matcher: ['/dashboard/:path*', '/profile']
 }

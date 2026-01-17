@@ -46,6 +46,8 @@ const Navbar = () => {
   const [category,setCategory] = useState<string>('');
   const [page,setPage] = useState<number>(1)
   const [propertyName,setPropertyName] = useState<string>('');
+  const [sortBy, setSortBy] = useState<'name' | 'price'>('name');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   const router = useRouter();
 
@@ -91,6 +93,8 @@ const Navbar = () => {
     if (checkOut) params.set("checkOut", formatDate(checkOut))
     if (category) params.set("categoryId", category)
     if (adults || children) params.set("guests", (adults+children).toString())
+    if (sortBy) params.set("sortBy", sortBy)
+    if (sortOrder) params.set("sortOrder", sortOrder)
 
     const queryString = params.toString()
     setIsMobileSearchOpen(false);
@@ -194,7 +198,13 @@ const Navbar = () => {
           setCheckOut(undefined);
           setAdults(0);
           setChildren(0);
+          setSortBy('name');
+          setSortOrder('asc');
         }}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+        sortOrder={sortOrder}
+        setSortOrder={setSortOrder}
       />
       
       {(isMobileMenuOpen) && (

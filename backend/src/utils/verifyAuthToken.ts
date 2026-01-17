@@ -10,7 +10,6 @@ const secretKey = process.env.JWT_SECRET || "secret";
 export const verifyAuthToken = (req: Request, res: Response, next: NextFunction) => {
   let authToken = req.cookies.authToken;
   
-  // Check header if cookie is missing
   if (!authToken && req.headers.authorization) {
     const authHeader = req.headers.authorization;
     if (authHeader.startsWith('Bearer ')) {

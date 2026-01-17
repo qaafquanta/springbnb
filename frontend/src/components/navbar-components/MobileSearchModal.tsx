@@ -29,6 +29,10 @@ interface MobileSearchModalProps {
   categories: any[] | null;
   onSearch: () => void;
   onClear: () => void;
+  sortBy: 'name' | 'price';
+  setSortBy: (s: 'name' | 'price') => void;
+  sortOrder: 'asc' | 'desc';
+  setSortOrder: (s: 'asc' | 'desc') => void;
 }
 
 const MobileSearchModal = ({
@@ -53,7 +57,11 @@ const MobileSearchModal = ({
   cities,
   categories,
   onSearch,
-  onClear
+  onClear,
+  sortBy,
+  setSortBy,
+  sortOrder,
+  setSortOrder
 }: MobileSearchModalProps) => {
   if (!isOpen) return null;
 
@@ -130,6 +138,46 @@ const MobileSearchModal = ({
             value={propertyName} 
             onChange={(e) => setPropertyName(e.target.value)}
           />
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.08)] mb-3 p-5 overflow-hidden transition-all duration-300">
+           <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                 <label className="text-sm font-semibold text-neutral-600">Sort By</label>
+                 <div className="flex gap-2">
+                    <button
+                      onClick={() => setSortBy('name')}
+                      className={`flex-1 py-2 rounded-lg border text-sm font-medium transition ${sortBy === 'name' ? 'border-rose-500 bg-rose-50 text-rose-500' : 'border-neutral-200 hover:border-neutral-300'}`}
+                    >
+                      Name
+                    </button>
+                    <button
+                      onClick={() => setSortBy('price')}
+                       className={`flex-1 py-2 rounded-lg border text-sm font-medium transition ${sortBy === 'price' ? 'border-rose-500 bg-rose-50 text-rose-500' : 'border-neutral-200 hover:border-neutral-300'}`}
+                    >
+                      Price
+                    </button>
+                 </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                 <label className="text-sm font-semibold text-neutral-600">Order</label>
+                 <div className="flex gap-2">
+                    <button
+                      onClick={() => setSortOrder('asc')}
+                      className={`flex-1 py-2 rounded-lg border text-sm font-medium transition ${sortOrder === 'asc' ? 'border-rose-500 bg-rose-50 text-rose-500' : 'border-neutral-200 hover:border-neutral-300'}`}
+                    >
+                      {sortBy === 'price' ? 'Low to High' : 'A - Z'}
+                    </button>
+                    <button
+                      onClick={() => setSortOrder('desc')}
+                       className={`flex-1 py-2 rounded-lg border text-sm font-medium transition ${sortOrder === 'desc' ? 'border-rose-500 bg-rose-50 text-rose-500' : 'border-neutral-200 hover:border-neutral-300'}`}
+                    >
+                       {sortBy === 'price' ? 'High to Low' : 'Z - A'}
+                    </button>
+                 </div>
+              </div>
+           </div>
         </div>
 
       </div>

@@ -14,18 +14,14 @@ async function proxy(request: NextRequest, { params }: { params: Promise<{ path:
   headers.delete("host");
   headers.delete("connection");
   
-  // Set Auth Header if token exists
   if (token) {
     headers.set("Authorization", `Bearer ${token}`);
   }
-
-  // Forward the body if appropriate
   let body: any = undefined;
   if (request.method !== 'GET' && request.method !== 'HEAD') {
       try {
           body = await request.clone().arrayBuffer(); 
       } catch (e) {
-          // If body reading fails, leave it undefined
       }
   }
 
@@ -34,7 +30,6 @@ async function proxy(request: NextRequest, { params }: { params: Promise<{ path:
       method: request.method,
       headers: headers,
       body: body,
-      // We don't need credentials: 'include' because we are manually attaching the header
     });
 
     const data = await res.arrayBuffer();
