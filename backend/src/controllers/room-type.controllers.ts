@@ -211,4 +211,56 @@ export const getRoomTypeCalendar = async (req:Request, res:Response) => {
         console.error(err)
         return res.status(500).json({ error: "Failed to get room type calendar" })
     }
+
+}
+
+export const updateRoomType = async (req:Request, res:Response) => {
+    try {
+        const { id } = req.params
+        const imageUrl = req.file
+        const { name, description, basePrice, capacity } = req.body
+
+        if (!id) {
+            return res.status(400).json({ error: "Room Type ID is required" })
+        }
+
+        let updateData: any = {}
+        if (name) updateData.name = name
+        if (description) updateData.description = description
+        if (basePrice) updateData.basePrice = Number(basePrice)
+        if (capacity) updateData.capacity = Number(capacity)
+
+        if (imageUrl) {
+            const cloudinaryImage = await cloudinary.uploader.upload(imageUrl.path)
+            updateData.images = [cloudinaryImage.secure_url]
+        }
+
+        const roomType = await prisma.roomType.update({
+            where: { id },
+            data: updateData
+        })
+
+        res.status(200).json({ message: "Room type updated successfully", roomType })
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ error: "Failed to update room type" })
+    }
+}
+
+export const deleteRoomType = async (req:Request, res:Response) => {
+    try {
+        const { id } = req.params
+        if (!id) {
+            return res.status(400).json({ error: "Room Type ID is required" })
+        }
+
+        await prisma.roomType.delete({
+            where: { id }
+        })
+
+        res.status(200).json({ message: "Room type deleted successfully" })
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ error: "Failed to delete room type" })
+    }
 }

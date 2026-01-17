@@ -233,6 +233,95 @@ export default function RoomManagement({ params }: { params : Params}){
         setEditRoomNumber("")
     }
 
+    const [isEditRoomTypeModalOpen, setIsEditRoomTypeModalOpen] = useState(false)
+    const [editingRoomType, setEditingRoomType] = useState<RoomType|null>(null)
+    const [deleteRoomTypeModal, setDeleteRoomTypeModal] = useState<{isOpen: boolean, roomType: RoomType | null}>({
+        isOpen: false,
+        roomType: null
+    })
+    const [deleteConfirmationText, setDeleteConfirmationText] = useState("")
+
+    const handleEditRoomTypeClick = (roomType: RoomType) => {
+        setEditingRoomType(roomType)
+        setFormData({
+            name: roomType.name,
+            description: roomType.description,
+            basePrice: roomType.basePrice.toString(),
+            capacity: roomType.capacity.toString(),
+            categoryId: property?.categoryId || "" 
+        })
+        if (roomType.images && roomType.images.length > 0) {
+            setPreview(roomType.images[0])
+        }
+        setIsEditRoomTypeModalOpen(true)
+    }
+
+    const handleUpdateRoomType = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!editingRoomType) return
+
+        const form = new FormData()
+        form.append("name", formData.name)
+        form.append("description", formData.description)
+        form.append("basePrice", formData.basePrice)
+        form.append("capacity", formData.capacity)
+        if (imageFile) {
+            form.append("imageUrl", imageFile)
+        }
+
+        try {
+            const response = await fetch(`/api/backend/room-type/update/${editingRoomType.id}`, {
+                method: "PUT",
+                body: form
+            })
+            
+            if (!response.ok) {
+                throw new Error('Failed to update room type')
+            }
+
+            alert("Room type updated successfully")
+            setFormData({name:"",description:"",basePrice:"",capacity:"",categoryId:""})
+            setPreview(null)
+            setImageFile(null)
+            setEditingRoomType(null)
+            setIsEditRoomTypeModalOpen(false)
+            fetchProperty(propertyId)
+        } catch (err) {
+            console.error(err)
+            alert("Failed to update room type")
+        }
+    }
+
+    const handleDeleteRoomTypeClick = (roomType: RoomType) => {
+        setDeleteRoomTypeModal({ isOpen: true, roomType })
+        setDeleteConfirmationText("")
+    }
+
+    const handleDeleteRoomTypeConfirm = async () => {
+        if (!deleteRoomTypeModal.roomType) return
+        
+        if (deleteConfirmationText.toLowerCase() !== "delete") return
+
+        try {
+            const response = await fetch(`/api/backend/room-type/delete/${deleteRoomTypeModal.roomType.id}`, {
+                method: "DELETE"
+            })
+
+            if (!response.ok) {
+                throw new Error('Failed to delete room type')
+            }
+
+            alert("Room type deleted successfully")
+            setDeleteRoomTypeModal({ isOpen: false, roomType: null })
+            setDeleteConfirmationText("")
+            fetchProperty(propertyId)
+        } catch (err) {
+            console.error(err)
+            alert("Failed to delete room type")
+        }
+    }
+
+
     const pathname = usePathname();
 
     const segments = pathname
@@ -333,6 +422,113 @@ export default function RoomManagement({ params }: { params : Params}){
                                 Create Room Type
                             </button>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {isEditRoomTypeModalOpen && editingRoomType && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                    <div className="w-full max-w-[360px] md:w-[360px] max-h-[90vh] bg-white rounded-2xl shadow-xl relative flex flex-col px-4 py-4 gap-4 overflow-y-auto">
+                        <div className="flex justify-between items-center border-b-[1px] border-neutral-300 pb-2">
+                            <h1 className="text-lg md:text-xl font-semibold">Edit Room Type</h1>
+                            <button onClick={()=>{setIsEditRoomTypeModalOpen(false); setEditingRoomType(null); setFormData({name:"",description:"",basePrice:"",capacity:"",categoryId:""}); setPreview(null); setImageFile(null)}} className="p-2">
+                                <FaX size={15} className="text-neutral-800 hover:text-rose-500 hover:scale-105 transition"/>
+                            </button>
+                        </div>
+                        
+                        <form className="flex flex-col gap-4 items-center w-full justify-center" onSubmit={handleUpdateRoomType}>
+                            <input 
+                                type="text" 
+                                placeholder="Room Type Name" 
+                                required  
+                                onChange={(e)=>handleChange(e)} 
+                                name="name" 
+                                value={formData.name} 
+                                className='w-full p-3 text-sm md:text-base border-[1px] border-neutral-300 rounded-lg focus:border-rose-600 focus:outline-none transition'
+                            />
+                            <input 
+                                type="text" 
+                                placeholder="Room Type Description" 
+                                required  
+                                onChange={(e)=>handleChange(e)} 
+                                name="description" 
+                                value={formData.description} 
+                                className='w-full p-3 text-sm md:text-base border-[1px] border-neutral-300 rounded-lg focus:border-rose-600 focus:outline-none transition'
+                            />
+                            <input 
+                                type="number" 
+                                placeholder="Base Price" 
+                                required  
+                                onChange={(e)=>handleChange(e)} 
+                                name="basePrice" 
+                                value={formData.basePrice} 
+                                className='w-full p-3 text-sm md:text-base border-[1px] border-neutral-300 rounded-lg focus:border-rose-600 focus:outline-none transition'
+                            />
+                            <input 
+                                type="number" 
+                                placeholder="Capacity" 
+                                required  
+                                onChange={(e)=>handleChange(e)} 
+                                name="capacity" 
+                                value={formData.capacity} 
+                                className='w-full p-3 text-sm md:text-base border-[1px] border-neutral-300 rounded-lg focus:border-rose-600 focus:outline-none transition'
+                            />
+                            
+                            {preview && (
+                                <img src={preview} className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-lg" />
+                            )}
+                            
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageChange}
+                                className="w-full text-sm"
+                            />
+
+                            <button 
+                                type="submit" 
+                                className="bg-rose-600 text-white px-4 py-3 rounded-lg font-semibold tracking-wide w-full text-sm md:text-base hover:bg-rose-700 transition"
+                            >
+                                Update Room Type
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {deleteRoomTypeModal.isOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                    <div className="w-full max-w-[360px] bg-white rounded-2xl shadow-xl relative flex flex-col px-4 py-4 gap-4">
+                        <div className="flex justify-between items-center border-b-[1px] border-neutral-300 pb-2">
+                            <h1 className="text-lg font-semibold text-red-600">Delete Room Type</h1>
+                            <button onClick={()=>setDeleteRoomTypeModal({isOpen: false, roomType: null})} className="p-2">
+                                <FaX size={15} className="text-neutral-800 hover:text-red-500 hover:scale-105 transition"/>
+                            </button>
+                        </div>
+                        
+                        <div className="flex flex-col gap-3">
+                            <p className="text-sm text-neutral-600">
+                                Are you sure you want to delete <strong className="text-black">{deleteRoomTypeModal.roomType?.name}</strong>?
+                                This action cannot be undone.
+                            </p>
+                            <p className="text-sm text-neutral-600">
+                                Type <strong>delete</strong> to confirm:
+                            </p>
+                            <input 
+                                type="text" 
+                                value={deleteConfirmationText}
+                                onChange={(e)=>setDeleteConfirmationText(e.target.value)}
+                                className="w-full p-2 border border-neutral-300 rounded-lg focus:border-red-500 outline-none"
+                                placeholder="Type 'delete'"
+                            />
+                            <button 
+                                onClick={handleDeleteRoomTypeConfirm}
+                                disabled={deleteConfirmationText.toLowerCase() !== "delete"}
+                                className="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold tracking-wide w-full hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                Confirm Delete
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
@@ -489,10 +685,16 @@ export default function RoomManagement({ params }: { params : Params}){
                                         </div>
                                         
                                         <div className="flex flex-row md:flex-col gap-2 md:items-center">
-                                            <button className="flex-1 md:flex-none text-xs md:text-sm bg-rose-500 text-white px-3 md:px-4 py-2 rounded-lg font-semibold tracking-wide md:w-full hover:cursor-pointer hover:bg-rose-600 transition">
+                                            <button 
+                                                onClick={()=>handleEditRoomTypeClick(roomType)}
+                                                className="flex-1 md:flex-none text-xs md:text-sm bg-rose-500 text-white px-3 md:px-4 py-2 rounded-lg font-semibold tracking-wide md:w-full hover:cursor-pointer hover:bg-rose-600 transition"
+                                            >
                                                 Edit
                                             </button>
-                                            <button className="flex-1 md:flex-none text-xs md:text-sm bg-red-600 text-white px-3 md:px-4 py-2 rounded-lg font-semibold tracking-wide md:w-full hover:cursor-pointer hover:bg-red-700 transition">
+                                            <button 
+                                                onClick={()=>handleDeleteRoomTypeClick(roomType)}
+                                                className="flex-1 md:flex-none text-xs md:text-sm bg-rose-500 text-white px-3 md:px-4 py-2 rounded-lg font-semibold tracking-wide md:w-full hover:cursor-pointer hover:bg-red-700 transition"
+                                            >
                                                 Delete
                                             </button>
                                         </div>
