@@ -1,9 +1,10 @@
 'use client'
-import { useEffect,useState } from "react";
+import { useEffect,useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import PropertyCard from "@/components/PropertyCard";
 import PaginationButton from "@/components/PaginationButton"
-export default function SearchPage(){
+
+function SearchContent() {
     const searchParams = useSearchParams()
     console.log(searchParams)
     const [listings,setListings] = useState<any>(null)
@@ -80,5 +81,21 @@ export default function SearchPage(){
         </div>
       </div>
     </div>
+    )
+}
+
+export default function SearchPage(){
+    return (
+        <Suspense fallback={
+            <div className="flex flex-col min-h-screen font-sans text-neutral-800 bg-white">
+                <div className="pt-24 pb-20">
+                    <div className="max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4">
+                       Loading...
+                    </div>
+                </div>
+            </div>
+        }>
+            <SearchContent />
+        </Suspense>
     )
 } 
