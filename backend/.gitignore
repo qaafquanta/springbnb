@@ -6,3 +6,5 @@ node_modules
 
 /prisma/seed.ts
 /prisma/seed-image.ts
+
+/dist
