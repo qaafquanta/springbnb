@@ -18,7 +18,8 @@ export default function PropertiesPage() {
 
     const fetchProperties = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/dashboard-properties`, {
+            // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/dashboard-properties`, {
+            const response = await fetch(`/api/backend/property/dashboard-properties`, {
                 method: 'GET',
                 credentials: 'include'
             })
