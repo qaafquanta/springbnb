@@ -27,27 +27,37 @@ enum ROLE{
   CUSTOMER
   TENANT
 }
+
+enum PROVIDER{
+  MANUAL
+  GOOGLE
+}
+
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
-  password  String
+  password  String?
   name      String
   role      ROLE @default(CUSTOMER)
   profilePicture String?
   isVerified Boolean @default(false)
+  provider PROVIDER @default(MANUAL)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   properties Property[]
+  propertyCategories propertyCategory[]
 }
 
 model propertyCategory{
   id          String   @id @default(uuid())
   name        String
   description String?
+  tenantId    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  tenant User? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   properties Property[]
 }
 
@@ -104,6 +114,7 @@ model RoomAvailability{
   id          String   @id @default(uuid())
   roomId      String
   date        DateTime 
+  reason      String?
   isAvailable Boolean @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -132,4 +143,17 @@ model PeakSeasonRate{
   updatedAt   DateTime @updatedAt
 
   roomType RoomType @relation(fields: [roomTypeId], references: [id],onDelete: Cascade)
+}
+
+enum ACTIVE_TOKEN_TYPE {
+  REGISTER
+  RESET_PASSWORD
+  CHANGE_EMAIL
+  CONFIRM_EMAIL
+}
+model ActiveToken{
+  id        String   @id @default(uuid())
+  token     String   @unique
+  type      ACTIVE_TOKEN_TYPE
+  createdAt DateTime @default(now())
 }

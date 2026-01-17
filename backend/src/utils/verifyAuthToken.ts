@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-// middleware untuk verifikasi JWT
 import jwt from "jsonwebtoken";
 import type{ Request, Response, NextFunction } from "express";
 
@@ -14,7 +13,7 @@ export const verifyAuthToken = (req: Request, res: Response, next: NextFunction)
 
   try {
     const decoded = jwt.verify(authToken, secretKey);
-    (req as any).user = decoded; // simpan user info ke request
+    (req as any).user = decoded;
     next();
   } catch (err) {
     return res.status(403).json({ message: "Invalid or expired token",tokenYangDiCek:authToken });

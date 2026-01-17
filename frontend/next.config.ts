@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
         hostname: "picsum.photos",
       },
       new URL(`https://res.cloudinary.com/dvfuxopef/image/upload/**`),
+      new URL(`https://lh3.googleusercontent.com/a/**`),
     ],
   },
 };

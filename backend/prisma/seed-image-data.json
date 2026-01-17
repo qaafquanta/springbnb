@@ -1,0 +1,113 @@
+{
+  "images": [
+    {
+      "fileName": "apartement-1.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/apartement-1.jpg",
+      "publicId": "springbnb-seeds/apartement-1",
+      "category": "property-apartement"
+    },
+    {
+      "fileName": "apartement-2.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/apartement-2.jpg",
+      "publicId": "springbnb-seeds/apartement-2",
+      "category": "property-apartement"
+    },
+    {
+      "fileName": "home-1.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/home-1.jpg",
+      "publicId": "springbnb-seeds/home-1",
+      "category": "property-home"
+    },
+    {
+      "fileName": "home-2.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/home-2.jpg",
+      "publicId": "springbnb-seeds/home-2",
+      "category": "property-home"
+    },
+    {
+      "fileName": "hotel-1.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/hotel-1.jpg",
+      "publicId": "springbnb-seeds/hotel-1",
+      "category": "property-hotel"
+    },
+    {
+      "fileName": "one-queen-bed-1.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/one-queen-bed-1.jpg",
+      "publicId": "springbnb-seeds/one-queen-bed-1",
+      "category": "room"
+    },
+    {
+      "fileName": "one-queen-bed-2.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/one-queen-bed-2.jpg",
+      "publicId": "springbnb-seeds/one-queen-bed-2",
+      "category": "room"
+    },
+    {
+      "fileName": "one-queen-bed-3.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/one-queen-bed-3.jpg",
+      "publicId": "springbnb-seeds/one-queen-bed-3",
+      "category": "room"
+    },
+    {
+      "fileName": "one-queen-bed-4.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/one-queen-bed-4.jpg",
+      "publicId": "springbnb-seeds/one-queen-bed-4",
+      "category": "room"
+    },
+    {
+      "fileName": "one-single-bed-1.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/one-single-bed-1.jpg",
+      "publicId": "springbnb-seeds/one-single-bed-1",
+      "category": "room"
+    },
+    {
+      "fileName": "one-single-bed-2.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/one-single-bed-2.jpg",
+      "publicId": "springbnb-seeds/one-single-bed-2",
+      "category": "room"
+    },
+    {
+      "fileName": "two-queen-bed-1.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/two-queen-bed-1.jpg",
+      "publicId": "springbnb-seeds/two-queen-bed-1",
+      "category": "room"
+    },
+    {
+      "fileName": "two-single-bed-1.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/two-single-bed-1.jpg",
+      "publicId": "springbnb-seeds/two-single-bed-1",
+      "category": "room"
+    },
+    {
+      "fileName": "villa-1.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/villa-1.jpg",
+      "publicId": "springbnb-seeds/villa-1",
+      "category": "property-villa"
+    },
+    {
+      "fileName": "villa-2.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/villa-2.jpg",
+      "publicId": "springbnb-seeds/villa-2",
+      "category": "property-villa"
+    },
+    {
+      "fileName": "villa-3.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/villa-3.jpg",
+      "publicId": "springbnb-seeds/villa-3",
+      "category": "property-villa"
+    },
+    {
+      "fileName": "villa-4.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204493/springbnb-seeds/villa-4.jpg",
+      "publicId": "springbnb-seeds/villa-4",
+      "category": "property-villa"
+    },
+    {
+      "fileName": "villa-5.jpeg",
+      "cloudinaryUrl": "https://res.cloudinary.com/dvfuxopef/image/upload/v1768204492/springbnb-seeds/villa-5.jpg",
+      "publicId": "springbnb-seeds/villa-5",
+      "category": "property-villa"
+    }
+  ],
+  "uploadedAt": "2026-01-12T07:54:53.459Z"
+}

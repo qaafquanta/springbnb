@@ -51,3 +51,21 @@ export const getPeakSeasonRates = async (req:Request, res:Response)=>{
         res.status(500).json({message:"Failed to get peak season rates"})
     }
 }
+
+
+export const deletePeakSeasonRate = async (req:Request, res:Response)=>{
+    try{
+        const {id} = req.params
+        if (!id) {
+            res.status(400).json({message: "ID is required"});
+            return;
+        }
+        await prisma.peakSeasonRate.delete({
+            where:{id}
+        })
+        res.status(200).json({message:"Peak season rate deleted successfully"})
+    }catch(err){
+        console.error(err)
+        res.status(500).json({message:"Failed to delete peak season rate"})
+    }
+}

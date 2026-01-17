@@ -8,6 +8,10 @@ import  authRouter  from './routes/auth.routes.js';
 import propertyRouter from './routes/property.route.js';
 import roomTypeRouter from './routes/roomType.route.js';
 import peakSeasonRateRouter from './routes/peak-season-rate.route.js';
+import roomRouter from './routes/room.route.js';
+import roomAvailabilityRouter from './routes/room-availability.route.js';
+import dashboardRouter from './routes/dashboard.route.js';
+import propertyCategoryRouter from './routes/property-category.route.js';
 const port = process.env.PORT || 8000;
 const app: Express = express();
 
@@ -23,6 +27,10 @@ app.use("/auth",authRouter);
 app.use("/property",propertyRouter)
 app.use("/room-type",roomTypeRouter)
 app.use("/peak-season-rate",peakSeasonRateRouter)
+app.use("/room",roomRouter)
+app.use("/room-availability",roomAvailabilityRouter)
+app.use("/dashboard",dashboardRouter)
+app.use("/property-category",propertyCategoryRouter)
 
 //middleware error handler
 app.use((error:any,req:Request,res:Response)=>{

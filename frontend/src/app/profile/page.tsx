@@ -1,17 +1,45 @@
 'use client'
+import { useRouter } from "next/navigation";
+import { useState } from 'react';
 import useAuthStore from "@/stores/authStore";
+import ProfileHeader from "@/components/profile/ProfileHeader";
+import EditProfileForm from "@/components/profile/EditProfileForm";
+import ProfileInfoCard from "@/components/profile/ProfileInfoCard";
+import SecurityCard from "@/components/profile/SecurityCard";
+
 export default function Profile() {
     const user = useAuthStore((s) => s.user);
+    const updateUser = useAuthStore((s) => s.updateUser);
+    const clearUser = useAuthStore((s) => s.clearUser);
+    const router = useRouter();
+    
+    const [isEditing, setIsEditing] = useState(false);
+
+    const handleLogout = async () => {
+        try {
+            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+                method: 'POST',
+                credentials: 'include',
+            });
+        } catch (error) {
+            console.error('Logout failed:', error);
+        } finally {
+            clearUser();
+            router.push("/login");
+            router.refresh();
+        }
+    }
 
     const handleResetPassword = async() => {
         try{
-            const response = await fetch('http://localhost:8000/auth/reset-password', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password-send-email`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: user.email,
+                    email: user?.email,
                 }),
             });
             const data = await response.json();
@@ -23,17 +51,57 @@ export default function Profile() {
             alert("Failed to send reset password email")
         }
     }
-    
+
+    const handleChangeEmail = async() => {
+        try{
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/change-email-send-email`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: user?.email,
+                }),
+            });
+            const data = await response.json();
+            console.log(data);
+            alert("Change email link send successfully")
+        }catch(err){
+            console.log(err);
+            alert("Failed to send change email link")
+        }
+    }
+
     return (
-        <main className="bg-white w-full min-h-screen text-black flex flex-col items-center justify-center font-sans">
-            <h1>Profile</h1>
-            <p>Name: {user.name}</p>
-            <p>Email: {user.email}</p>
-            <p>Role: {user.role}</p>
-            <p>Profile Picture: {user.profilePicture}</p>
-            <div className="flex flex-row items-center gap-3 mt-10">
-                <button className="bg-rose-500 text-white px-4 py-2 rounded-xl" onClick={handleResetPassword}>Reset Password</button>
-                <button className="bg-rose-500 text-white px-4 py-2 rounded-xl">Logout</button>
+        <main className="pt-20 bg-neutral-50 w-full min-h-screen text-neutral-800 font-sans">
+            <ProfileHeader 
+                user={user} 
+                isEditing={isEditing} 
+                setIsEditing={setIsEditing} 
+                onLogout={handleLogout} 
+            />
+
+            <div className="max-w-4xl mx-auto px-4 py-8">
+                {isEditing ? (
+                    <EditProfileForm 
+                        user={user} 
+                        onCancel={() => setIsEditing(false)}
+                        onSuccess={(updatedUser) => {
+                            updateUser(updatedUser);
+                            setIsEditing(false);
+                        }}
+                    />
+                ) : (
+                    <div className="space-y-6">
+                        <ProfileInfoCard user={user} onEdit={() => setIsEditing(true)} />
+                        <SecurityCard 
+                            user={user} 
+                            onResetPassword={handleResetPassword} 
+                            onChangeEmail={handleChangeEmail} 
+                        />
+                    </div>
+                )}
             </div>
         </main>
     )

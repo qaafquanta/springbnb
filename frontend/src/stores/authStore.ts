@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 interface IAuthStore {
   user:{
@@ -7,12 +6,13 @@ interface IAuthStore {
     email:string;
     role:string;
     profilePicture:string;
-  },
-  login: (userParam) => void;
+  }|null;
+  login: (userParam: any) => void;
+  clearUser: () => void;
+  updateUser: (userData: any) => void;
 }
 
-const useAuthStore = create(persist((set) => ({
-    //STATE
+const useAuthStore = create<IAuthStore>((set) => ({
     user:{
         name:"",
         email:"",
@@ -20,14 +20,12 @@ const useAuthStore = create(persist((set) => ({
         profilePicture:""
     },
 
-    //ACTION
-    login: (userParam) => {
+    login: (userParam: any) => {
       if (userParam) {
         set(() => ({ user: userParam }));
       }
     },
 
-    // Clear user (logout)
     clearUser: () => set({
         user: {
           name: "",
@@ -37,27 +35,9 @@ const useAuthStore = create(persist((set) => ({
         }
     }),
 
-//     addToCart: (newPhoto) =>
-//         set((state) => ({
-//         cart: [...state.cart, newPhoto]
-//     })),
-
-//     removePhotoFromCart: (photoId) =>
-//         set((state) => ({
-//         cart: state.cart.filter((photo) => photo.id !== photoId),
-//     })),
-
-//     togglePhotoCheck: (index) => 
-//       set((state) => ({
-//         cart: state.cart.map((photo, i) => 
-//           i === index 
-//             ? { ...photo, isChecked: !photo.isChecked } 
-//             : photo
-//         )
-//     })),
-    
-}),
-{name: 'auth-store'}
-));
+    updateUser: (userData: any) => set((state: any) => ({
+        user: { ...state.user, ...userData }
+    })),
+  }))
 
 export default useAuthStore;
