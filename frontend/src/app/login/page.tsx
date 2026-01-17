@@ -50,7 +50,7 @@ function LoginContent() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try{
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+            const response = await fetch(`/api/auth/login`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -68,10 +68,10 @@ function LoginContent() {
             }
             alert("Login successfully");
             
-            if(data.result) {
-                login(data.result);
+            if(data.user) {
+                login(data.user);
                 
-                if (data.result.role === 'TENANT') {
+                if (data.user.role === 'TENANT') {
                     router.push('/dashboard');
                 } else {
                     router.push('/profile');
