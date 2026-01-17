@@ -52,7 +52,7 @@ const Navbar = () => {
   useEffect(()=>{
     const authCheck = async() => {
       try{
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/auth-check`, {
+        const response = await fetch(`/api/auth/check`, {
           method: 'GET',
           credentials: "include",
         });

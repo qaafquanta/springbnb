@@ -8,7 +8,16 @@ const secretKey = process.env.JWT_SECRET || "secret";
 
 
 export const verifyAuthToken = (req: Request, res: Response, next: NextFunction) => {
-  const authToken = req.cookies.authToken;
+  let authToken = req.cookies.authToken;
+  
+  // Check header if cookie is missing
+  if (!authToken && req.headers.authorization) {
+    const authHeader = req.headers.authorization;
+    if (authHeader.startsWith('Bearer ')) {
+      authToken = authHeader.substring(7);
+    }
+  }
+
   if (!authToken) return res.status(401).json({ message: "No token provided" });
 
   try {
