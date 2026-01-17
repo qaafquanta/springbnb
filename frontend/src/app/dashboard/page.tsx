@@ -46,9 +46,8 @@ export default function Dashboard() {
     useEffect(() => {
         const fetchDashboardData = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/dashboard/stats`, {
-                    method: 'GET',
-                    credentials: 'include'
+                const response = await fetch(`/api/backend/dashboard/stats`, {
+                    method: 'GET'
                 })
                 const result = await response.json()
                 setStats(result.stats)

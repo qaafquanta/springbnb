@@ -33,9 +33,7 @@ export default function EditProperty() {
     useEffect(() => {
         const fetchPropertyData = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/edit/${propertyId}`, {
-                    credentials: 'include'
-                })
+                const response = await fetch(`/api/backend/property/edit/${propertyId}`)
                 const data = await response.json()
                 
                 if (data.success) {
@@ -80,10 +78,9 @@ export default function EditProperty() {
         })
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/update/${propertyId}`, {
+            const response = await fetch(`/api/backend/property/update/${propertyId}`, {
                 method: "PUT",
-                body: form,
-                credentials: "include"
+                body: form
             });
             const data = await response.json()
             

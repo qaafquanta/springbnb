@@ -59,9 +59,8 @@ export default function RoomAvailability() {
 
     const fetchProperties = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room-availability/rooms`, {
-                method: 'GET',
-                credentials: 'include'
+            const response = await fetch(`/api/backend/room-availability/rooms`, {
+                method: 'GET'
             })
             const result = await response.json()
             setProperties(result.properties || [])
@@ -72,9 +71,8 @@ export default function RoomAvailability() {
 
     const fetchUnavailableRecords = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room-availability/unavailable`, {
-                method: 'GET',
-                credentials: 'include'
+            const response = await fetch(`/api/backend/room-availability/unavailable`, {
+                method: 'GET'
             })
             const result = await response.json()
             setUnavailableRecords(result.unavailable || [])
@@ -151,12 +149,11 @@ export default function RoomAvailability() {
 
         setLoading(true)
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room-availability/create`, {
+            const response = await fetch(`/api/backend/room-availability/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'include',
                 body: JSON.stringify({
                     roomIds: selectedRoomIds,
                     startDate: dateRange.from.toISOString(),
@@ -186,9 +183,8 @@ export default function RoomAvailability() {
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure you want to delete this unavailability?")) return
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room-availability/delete/${id}`, {
-                method: 'DELETE',
-                credentials: 'include'
+            const response = await fetch(`/api/backend/room-availability/delete/${id}`, {
+                method: 'DELETE'
             })
             if (response.ok) {
                 alert("Deleted successfully")
@@ -213,12 +209,11 @@ export default function RoomAvailability() {
 
         setLoading(true)
         try {
-            const response = await fetch(`http://localhost:8000/room-availability/delete-range`, {
+            const response = await fetch(`/api/backend/room-availability/delete-range`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'include',
                 body: JSON.stringify({
                     roomId: deleteRoomId,
                     startDate: deleteDateRange.from.toISOString(),

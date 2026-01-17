@@ -17,9 +17,8 @@ export default function Profile() {
 
     const handleLogout = async () => {
         try {
-            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
-                method: 'POST',
-                credentials: 'include',
+            await fetch(`/api/backend/auth/logout`, {
+                method: 'POST'
             });
         } catch (error) {
             console.error('Logout failed:', error);
@@ -32,9 +31,8 @@ export default function Profile() {
 
     const handleResetPassword = async() => {
         try{
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password-send-email`, {
+            const response = await fetch(`/api/backend/auth/reset-password-send-email`, {
                 method: 'POST',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -54,9 +52,8 @@ export default function Profile() {
 
     const handleChangeEmail = async() => {
         try{
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/change-email-send-email`, {
+            const response = await fetch(`/api/backend/auth/change-email-send-email`, {
                 method: 'POST',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },

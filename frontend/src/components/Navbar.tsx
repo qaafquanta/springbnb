@@ -54,7 +54,6 @@ const Navbar = () => {
       try{
         const response = await fetch(`/api/auth/check`, {
           method: 'GET',
-          credentials: "include",
         });
         const data = await response.json();
         login(data.user);
@@ -64,7 +63,7 @@ const Navbar = () => {
     }
     const fetchSearchInfo = async() => {
       try{
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/search-info`, {
+        const response = await fetch(`/api/backend/property/search-info`, {
           method: 'GET',
         });
         const data = await response.json();

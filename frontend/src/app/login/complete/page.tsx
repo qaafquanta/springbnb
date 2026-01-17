@@ -18,9 +18,8 @@ export default function LoginComplete() {
             }
 
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/google-login`, {
+                const response = await fetch(`/api/backend/auth/google-login`, {
                     method: 'POST',
-                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
                     },

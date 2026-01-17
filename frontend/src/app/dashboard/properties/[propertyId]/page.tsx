@@ -45,9 +45,8 @@ export default function RoomManagement({ params }: { params : Params}){
     const [property,setProperty] = useState<Property | null>(null)
     
     const fetchProperty = async(id:string) => {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/${id}`,{
-            method:'GET',
-            credentials: 'include'
+        const response = await fetch(`/api/backend/property/${id}`,{
+            method:'GET'
         })
         const result = await response.json()
         console.log(result)
@@ -79,10 +78,9 @@ export default function RoomManagement({ params }: { params : Params}){
             form.append("imageUrl",imageFile)
         }
         try{
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room-type/create/${propertyId}`, {
+            const response = await fetch(`/api/backend/room-type/create/${propertyId}`, {
                 method: "POST",
-                body: form,
-                credentials: "include"
+                body: form
             });
             const data = await response.json()
             console.log(data)
@@ -138,9 +136,8 @@ export default function RoomManagement({ params }: { params : Params}){
 
     const fetchRooms = async (roomTypeId: string) => {
         try{
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room/${roomTypeId}`,{
-                method:'GET',
-                credentials: 'include'
+            const response = await fetch(`/api/backend/room/${roomTypeId}`,{
+                method:'GET'
             })
             const result = await response.json()
             setRooms(result.rooms || [])
@@ -153,13 +150,12 @@ export default function RoomManagement({ params }: { params : Params}){
         e.preventDefault()
         if(!selectedRoomType) return
         try{
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room/create/${selectedRoomType.id}`,{
+            const response = await fetch(`/api/backend/room/create/${selectedRoomType.id}`,{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json'
                 },
-                body: JSON.stringify({ roomNumber: newRoomNumber }),
-                credentials: 'include'
+                body: JSON.stringify({ roomNumber: newRoomNumber })
             })
             const result = await response.json()
             if(!response.ok){
@@ -185,13 +181,12 @@ export default function RoomManagement({ params }: { params : Params}){
         e.preventDefault()
         if(!editingRoom) return
         try{
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room/update/${editingRoom.id}`,{
+            const response = await fetch(`/api/backend/room/update/${editingRoom.id}`,{
                 method:'PUT',
                 headers:{
                     'Content-Type':'application/json'
                 },
-                body: JSON.stringify({ roomNumber: editRoomNumber }),
-                credentials: 'include'
+                body: JSON.stringify({ roomNumber: editRoomNumber })
             })
             const result = await response.json()
             if(!response.ok){
@@ -212,9 +207,8 @@ export default function RoomManagement({ params }: { params : Params}){
     const handleDeleteRoom = async (roomId: string) => {
         if(!confirm("Are you sure you want to delete this room?")) return
         try{
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room/delete/${roomId}`,{
-                method:'DELETE',
-                credentials: 'include'
+            const response = await fetch(`/api/backend/room/delete/${roomId}`,{
+                method:'DELETE'
             })
             const result = await response.json()
             if(!response.ok){

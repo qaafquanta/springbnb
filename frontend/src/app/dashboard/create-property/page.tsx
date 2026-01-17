@@ -21,9 +21,7 @@ export default function CreateProperty() {
 
     const fetchCategories = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property-category`, {
-                credentials: 'include'
-            })
+            const response = await fetch(`/api/backend/property-category`)
             const data = await response.json()
             console.log(data)
             setPropertyCategories(data.categories || [])
@@ -50,10 +48,9 @@ export default function CreateProperty() {
             form.append("imageUrl", imageFile)
         }
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/create-property`, {
+            const response = await fetch(`/api/backend/property/create-property`, {
                 method: "POST",
-                body: form,
-                credentials: "include"
+                body: form
             });
             const data = await response.json()
             console.log(data)

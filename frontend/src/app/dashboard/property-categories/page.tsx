@@ -29,9 +29,8 @@ export default function PropertyCategories() {
 
     const fetchCategories = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property-category/my-categories`, {
-                method: 'GET',
-                credentials: 'include'
+            const response = await fetch(`/api/backend/property-category/my-categories`, {
+                method: 'GET'
             })
             const result = await response.json()
             setCategories(result.categories || [])
@@ -77,14 +76,13 @@ export default function PropertyCategories() {
         setSubmitting(true)
         try {
             const url = isEditing 
-                ? `${process.env.NEXT_PUBLIC_API_URL}/property-category/update/${editingId}`
-                : `${process.env.NEXT_PUBLIC_API_URL}/property-category/create`
+                ? `/api/backend/property-category/update/${editingId}`
+                : `/api/backend/property-category/create`
             
             const response = await fetch(url, {
                 method: isEditing ? 'PUT' : 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-                credentials: 'include'
+                body: JSON.stringify(formData)
             })
 
             const result = await response.json()
@@ -114,9 +112,8 @@ export default function PropertyCategories() {
         }
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property-category/delete/${category.id}`, {
-                method: 'DELETE',
-                credentials: 'include'
+            const response = await fetch(`/api/backend/property-category/delete/${category.id}`, {
+                method: 'DELETE'
             })
 
             const result = await response.json()

@@ -20,8 +20,7 @@ export default function PropertiesPage() {
         try {
             // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/dashboard-properties`, {
             const response = await fetch(`/api/backend/property/dashboard-properties`, {
-                method: 'GET',
-                credentials: 'include'
+                method: 'GET'
             })
             const data = await response.json()
             console.log(data)
@@ -54,9 +53,8 @@ export default function PropertiesPage() {
         
         setIsDeleting(true)
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/delete/${deleteModal.property.id}`, {
-                method: 'DELETE',
-                credentials: 'include'
+            const response = await fetch(`/api/backend/property/delete/${deleteModal.property.id}`, {
+                method: 'DELETE'
             })
             const data = await response.json()
             

@@ -66,10 +66,9 @@ const EditProfileForm = ({ user, onCancel, onSuccess }: EditProfileFormProps) =>
         }
         
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/update-profile`, {
+            const response = await fetch(`/api/backend/auth/update-profile`, {
                 method: "PUT",
-                body: form,
-                credentials: "include"
+                body: form
             });
             const data = await response.json();
             

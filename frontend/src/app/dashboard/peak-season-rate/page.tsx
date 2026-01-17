@@ -25,12 +25,11 @@ export default function PeakSeasonRate() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/peak-season-rate/create`, {
+            const response = await fetch(`/api/backend/peak-season-rate/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'include',
                 body: JSON.stringify(formData)
             })
 
@@ -59,9 +58,8 @@ export default function PeakSeasonRate() {
         if (!confirm("Are you sure you want to delete this rate?")) return
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/peak-season-rate/delete/${id}`, {
-                method: 'DELETE',
-                credentials: 'include'
+            const response = await fetch(`/api/backend/peak-season-rate/delete/${id}`, {
+                method: 'DELETE'
             })
 
             if (response.ok) {
@@ -112,9 +110,8 @@ export default function PeakSeasonRate() {
     const [peakSeasonRates, setPeakSeasonRates] = useState<any>(null)
 
     const fetchPeakSeasonRates = async () => {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/peak-season-rate`, {
-            method: 'GET',
-            credentials: 'include'
+        const response = await fetch(`/api/backend/peak-season-rate`, {
+            method: 'GET'
         })
         const peakSeasonRates = await response.json()
         console.log(peakSeasonRates)
@@ -123,9 +120,8 @@ export default function PeakSeasonRate() {
 
     useEffect(() => {
         const fetchRoomTypes = async () => {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/room-type`, {
-                method: 'GET',
-                credentials: 'include'
+            const response = await fetch(`/api/backend/room-type`, {
+                method: 'GET'
             })
             const properties = await response.json()
             console.log(properties)

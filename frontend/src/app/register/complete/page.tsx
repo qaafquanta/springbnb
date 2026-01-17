@@ -22,9 +22,8 @@ export default function RegisterComplete() {
             localStorage.removeItem('registerRole');
 
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/google-register`, {
+                const response = await fetch(`/api/backend/auth/google-register`, {
                     method: 'POST',
-                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
                     },
